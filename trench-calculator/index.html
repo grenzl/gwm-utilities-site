@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSHA Trench Sloping & Shoring Angle Calculator</title>
+    <meta name="description" content="Calculate OSHA-compliant trench sloping ratios, excavation setback distances, and safe cutback angles dynamically. Features interactive geometric profile visualizer.">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        /* Interactive Ad Slots for monetization deployment */
+        .ad-slot-wrapper {
+            background: #111827;
+            border: 2px dashed #374151;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 0.85rem;
+            margin: 1.5rem 0;
+            border-radius: 0.75rem;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased">
+
+    <!-- Navbar Header -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl">🚧</span>
+                <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">TrenchGuard Pro</span>
+            </div>
+            <span class="text-xs font-semibold bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full border border-yellow-500/30">Civil Engineering Tool</span>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        
+        <!-- Header Introduction -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-2 tracking-tight">OSHA Trench Sloping & Angle Calculator</h1>
+            <p class="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">Instantly calculate mandatory excavation slope angles, vertical-to-horizontal ratios, and minimum safe setback clearances.</p>
+        </div>
+
+        <!-- Upper Banner Ad Slot -->
+        <div class="ad-slot-wrapper"><!-- [Insert Google AdSense Leaderboard Here] --></div>
+
+        <!-- Dynamic Utility Grid Workspace -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start mb-12">
+            
+            <!-- Controls Form Block -->
+            <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-2xl lg:col-span-1 space-y-5">
+                <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                    <span>📋</span> Excavation Inputs
+                </h2>
+                
+                <!-- Soil Classification Selector -->
+                <div>
+                    <label for="soilType" class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Soil Classification Type</label>
+                    <select id="soilType" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-yellow-500 text-sm">
+                        <!-- Value represents H:V sloping ratio -->
+                        <option value="0.75" selected>Type A (Cohesive - Clay, Clay Loam) | 0.75:1 (53°)</option>
+                        <option value="1.0">Type B (Medium Cohesive - Silt, Sandy Loam) | 1:1 (45°)</option>
+                        <option value="1.5">Type C (Coarse/Granular - Sand, Gravel, Mud) | 1.5:1 (34°)</option>
+                        <option value="0.5">Solid Rock (Vertical allowed up to 20ft) | 0.5:1 (63°)</option>
+                    </select>
+                </div>
+
+                <!-- Trench Depth Input -->
+                <div>
+                    <label for="trenchDepth" class="block text-xs font-medium text-slate-400 mb-1">Trench Depth (Feet)</label>
+                    <input type="number" id="trenchDepth" value="8" min="1" max="25" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-yellow-500">
+                    <p class="text-[10px] text-slate-500 mt-1">Excavations deeper than 20 feet legally require design by a registered professional engineer (PE).</p>
+                </div>
+
+                <!-- Trench Bottom Width Input -->
+                <div>
+                    <label for="trenchWidth" class="block text-xs font-medium text-slate-400 mb-1">Trench Bottom Width (Feet)</label>
+                    <input type="number" id="trenchWidth" value="4" min="1" max="15" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-yellow-500">
+                </div>
+
+                <!-- Live Calculated Math Outputs Card -->
+                <div class="border-t border-slate-800 pt-4 space-y-3">
+                    <div class="bg-slate-950 p-3 rounded-lg flex justify-between items-center">
+                        <span class="text-xs text-slate-400">Setback / Run (H):</span>
+                        <span id="outSetback" class="text-sm font-bold text-white">6.0 ft</span>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-lg flex justify-between items-center">
+                        <span class="text-xs text-slate-400">Total Top Width:</span>
+                        <span id="outTopWidth" class="text-sm font-bold text-yellow-400">16.0 ft</span>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-lg flex justify-between items-center">
+                        <span class="text-xs text-slate-400">Maximum Safe Angle:</span>
+                        <span id="outAngle" class="text-sm font-bold text-cyan-400">53°</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Canvas Visualization Column -->
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- Graphic Card Wrapper -->
+                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-2xl space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                            <span>📐</span> Cross-Section Geometry
+                        </h2>
+                        <span class="text-[10px] uppercase font-bold px-2 py-1 bg-slate-800 text-slate-400 rounded tracking-wider border border-slate-700">Live Scale Vector</span>
+                    </div>
+
+                    <!-- Canvas Container -->
+                    <div class="relative w-full bg-slate-950 rounded-xl overflow-hidden border border-slate-800 flex justify-center items-center p-4">
+                        <canvas id="trenchCanvas" class="w-full max-w-lg aspect-[4/3] bg-slate-950" width="800" height="600"></canvas>
+                    </div>
+
+                    <!-- Alert Indicator Box -->
+                    <div id="safetyAlert" class="p-4 rounded-xl flex items-center gap-3 border transition-colors bg-emerald-950/40 border-emerald-500/30 text-emerald-200">
+                        <span id="alertIcon" class="text-2xl">✅</span>
+                        <div>
+                            <h4 id="alertTitle" class="font-bold text-sm">OSHA Compliant Design</h4>
+                            <p id="alertDesc" class="text-xs opacity-80 mt-0.5">Sloping conforms to subpart P standards.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Middle Native Article Ad Banner -->
+        <div class="ad-slot-wrapper"><!-- [Insert Google AdSense In-Article Native Code Here] --></div>
+
+        <!-- ============================================================== -->
+        <!-- PREMIUM AD NETWORK HIGH-VALUE TEXT LAYER                       -->
+        <!-- ============================================================== -->
+        <section class="prose prose-invert max-w-4xl mx-auto border-t border-slate-800 pt-12 mt-12 text-slate-300 space-y-6 text-sm md:text-base leading-relaxed">
+            <h2 class="text-2xl font-extrabold text-white tracking-tight">OSHA Standard 1926 Subpart P: Safety Regulations for Trenching and Excavations</h2>
+            <p>
+                Excavation work constitutes one of the most hazardous operations within the civil construction industry. Because soil weights can exceed 3,000 pounds per cubic yard, an unprotected cave-in or trench collapse is almost always fatal. To mitigate these structural risks, the **Occupational Safety and Health Administration (OSHA)** mandates specific protective system procedures under standard **29 CFR 1926 Subpart P**.
+            </p>
+            <p>
+                This standard dictates that any excavation reaching or exceeding a depth of **5 feet** must be equipped with an approved protective setup—which can consist of sloping, shoring, benching, or shielding. For depths exceeding **20 feet**, standard regulatory formulas are insufficient, and the safety shielding system must be explicitly drafted and stamped by a registered Professional Engineer (PE).
+            </p>
+            
+            <h3 class="text-lg font-bold text-white mt-6">1. Understanding OSHA Soil Classifications</h3>
+            <p>
+                Before determining the angle of cutback, the site competent person must perform physical and visual tests (such as plastic, dry strength, or penetrometer tests) to classify the soil system:
+            </p>
+            <ul class="list-disc list-inside space-y-2 text-slate-400 pl-4">
+                <li><strong>Type A Soil (Cohesive):</strong> Typically consists of clay, silty clay, or sandy clay. This soil does not crumble easily and has an unconfined compressive strength of 1.5 tons per square foot (tsf) or greater. The legally allowed maximum slope ratio is **0.75:1** (approx. 53 degrees).</li>
+                <li><strong>Type B Soil (Medium Cohesive):</strong> Consists of granular soils, silt, sandy loam, or previously disturbed soil. It has an unconfined compressive strength between 0.5 tsf and 1.5 tsf. The legally allowed maximum slope ratio is **1:1** (45 degrees).</li>
+                <li><strong>Type C Soil (Granular):</strong> The least stable soil structure, consisting of loose sand, gravel, loamy sand, or soil from which water is freely seeping. Its unconfined compressive strength is 0.5 tsf or less. The legally allowed maximum slope ratio is **1.5:1** (approx. 34 degrees).</li>
+            </ul>
+
+            <h3 class="text-lg font-bold text-white mt-6">2. The Mathematics of Excavation Sloping</h3>
+            <p>
+                Sloping calculates how far back from the trench edge you must excavate to prevent soil shear failures. The horizontal run calculation is calculated as follows:
+            </p>
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 font-mono text-center text-xs my-4 text-yellow-400">
+                Horizontal Run (H) = Trench Depth (V) * Sloping Ratio (H:V)
+            </div>
+            <p>
+                For example, if you are digging a **10-foot deep trench** in **Type B soil (1:1 ratio)**, your horizontal cutback on *each side* of the trench must be 10 feet. Therefore, the total top surface width of your excavation must equal the bottom trench width plus 20 feet (10 feet of cutback on both the left and right sides).
+            </p>
+
+            <h3 class="text-lg font-bold text-white mt-6">3. Key Safety Rules for Trenching Sites</h3>
+            <p>
+                Calculating the correct slope is only the first step. To maintain a safe and legal excavation perimeter, construction operators must adhere to these structural rules:
+            </p>
+            <ul class="list-disc list-inside space-y-2 text-slate-400 pl-4">
+                <li><strong>Spoil Pile Setback:</strong> Excavated material (spoils) and heavy equipment must be placed at least **2 feet** away from the top edge of the trench to prevent loose dirt from rolling back in or destabilizing the trench wall.</li>
+                <li><strong>Egress & Ladders:</strong> Lateral travel distance to a safe exit (like a secured ladder, ramp, or stairway) must not exceed **25 feet** for employees inside any trench depth of 4 feet or deeper.</li>
+                <li><strong>Atmospheric Testing:</strong> If a trench exceeds 4 feet and there is a potential for oxygen deficiency or toxic gas accumulation, atmospheric testing is mandatory before worker entry.</li>
+            </ul>
+
+            <h3 class="text-lg font-bold text-white mt-6">4. OSHA Soil Classifications Quick Reference Index</h3>
+            <div class="overflow-x-auto bg-slate-950 p-2 rounded-xl border border-slate-800">
+                <table class="w-full text-left text-xs md:text-sm text-slate-400">
+                    <thead class="bg-slate-900 text-xs uppercase text-slate-200">
+                        <tr>
+                            <th class="p-3">OSHA Soil Category</th>
+                            <th class="p-3">Max Sloping Angle</th>
+                            <th class="p-3">Horizontal-to-Vertical Ratio</th>
+                            <th class="p-3">Compressive Strength (tsf)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800">
+                        <tr>
+                            <td class="p-3 font-semibold text-white">Solid Rock</td>
+                            <td class="p-3">90° (Vertical)</td>
+                            <td class="p-3">0:1 (Allowed up to 20 feet)</td>
+                            <td class="p-3">Stable Crystalline Structure</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold text-white">Type A Soil</td>
+                            <td class="p-3">53°</td>
+                            <td class="p-3">0.75:1</td>
+                            <td class="p-3">1.5 or greater</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold text-white">Type B Soil</td>
+                            <td class="p-3">45°</td>
+                            <td class="p-3">1.0:1</td>
+                            <td class="p-3">0.5 to 1.5</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold text-white">Type C Soil</td>
+                            <td class="p-3">34°</td>
+                            <td class="p-3">1.5:1</td>
+                            <td class="p-3">Less than 0.5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Footer Bottom Ad Bracket -->
+        <div class="ad-slot-wrapper"><!-- [Insert Google AdSense Anchor Banner Unit Here] --></div>
+
+    </main>
+
+    <!-- Footer Copyright Block -->
+    <footer class="border-t border-slate-800 bg-slate-950 mt-12 py-6 text-center text-xs text-slate-500">
+        <p>&copy; 2026 TrenchGuard Pro Systems. Built in compliance with OSHA Standard 29 CFR 1926 Subpart P.</p>
+    </footer>
+
+    <!-- ============================================================== -->
+    <!-- JAVASCRIPT DRAWING ENGINE (PURE CLIENT-SIDE LOGIC)             -->
+    <!-- ============================================================== -->
+    <script>
+        // DOM targets
+        const soilTypeSelect = document.getElementById('soilType');
+        const trenchDepthInput = document.getElementById('trenchDepth');
+        const trenchWidthInput = document.getElementById('trenchWidth');
+
+        const outSetback = document.getElementById('outSetback');
+        const outTopWidth = document.getElementById('outTopWidth');
+        const outAngle = document.getElementById('outAngle');
+
+        const canvas = document.getElementById('trenchCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const safetyAlert = document.getElementById('safetyAlert');
+        const alertIcon = document.getElementById('alertIcon');
+        const alertTitle = document.getElementById('alertTitle');
+        const alertDesc = document.getElementById('alertDesc');
+
+        function recalculateTrenchGeometry() {
+            // Read inputs
+            const ratio = parseFloat(soilTypeSelect.value); // H:V Ratio
+            const depth = parseFloat(trenchDepthInput.value) || 0;
+            const bottomWidth = parseFloat(trenchWidthInput.value) || 0;
+
+            // Calculations
+            const setback = depth * ratio;
+            const topWidth = bottomWidth + (2 * setback);
+            const angleDegrees = Math.round(Math.atan(1 / ratio) * (180 / Math.PI));
+
+            // Write texts
+            outSetback.innerText = `${setback.toFixed(1)} ft`;
+            outTopWidth.innerText = `${topWidth.toFixed(1)} ft`;
+            outAngle.innerText = `${angleDegrees}°`;
+
+            // Render Alert Safety Styling Rules
+            if (depth > 20) {
+                safetyAlert.className = "p-4 rounded-xl flex items-center gap-3 border transition-colors bg-red-950/40 border-red-500/30 text-red-200";
+                alertIcon.innerText = "🚨";
+                alertTitle.innerText = "PE Stamp Required (Over 20 Feet)";
+                alertDesc.innerText = "Depths exceeding 20 feet legally require custom structural design by a registered Professional Engineer.";
+            } else if (depth >= 5) {
+                safetyAlert.className = "p-4 rounded-xl flex items-center gap-3 border transition-colors bg-amber-950/40 border-amber-500/30 text-amber-200";
+                alertIcon.innerText = "⚠️";
+                alertTitle.innerText = "Protective System Mandatory (≥ 5 Feet)";
+                alertDesc.innerText = "Sloping, shoring, or shielding is legally required at this depth to prevent structural failures.";
+            } else {
+                safetyAlert.className = "p-4 rounded-xl flex items-center gap-3 border transition-colors bg-emerald-950/40 border-emerald-500/30 text-emerald-200";
+                alertIcon.innerText = "✅";
+                alertTitle.innerText = "Excavation Safe Zone (< 5 Feet)";
+                alertDesc.innerText = "While a protective system is optional under 5 feet, the site competent person must inspect soil stability continuously.";
+            }
+
+            // Draw Trench Canvas
+            drawTrenchModel(ratio, depth, bottomWidth, setback, topWidth, angleDegrees);
+        }
+
+        function drawTrenchModel(ratio, depth, bottomWidth, setback, topWidth, angle) {
+            // Clear Canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Responsive scale scaling factors based on dimensions
+            const maxDimension = Math.max(topWidth, depth) || 1;
+            const scale = (canvas.height * 0.6) / maxDimension;
+
+            // Coordinate Center offsets
+            const cx = canvas.width / 2;
+            const cy = canvas.height * 0.85; // Floor offset line
+
+            // Derived coordinates
+            const botHalfWidthPx = (bottomWidth / 2) * scale;
+            const topHalfWidthPx = (topWidth / 2) * scale;
+            const depthPx = depth * scale;
+
+            // Geometry Points
+            const leftTop = { x: cx - topHalfWidthPx, y: cy - depthPx };
+            const leftBot = { x: cx - botHalfWidthPx, y: cy };
+            const rightBot = { x: cx + botHalfWidthPx, y: cy };
+            const rightTop = { x: cx + topHalfWidthPx, y: cy - depthPx };
+
+            // 1. Draw Sky/Horizon background
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // 2. Draw surrounding soil profile
+            ctx.fillStyle = '#451a03'; // Deep clay brown
+            ctx.beginPath();
+            ctx.moveTo(0, leftTop.y);
+            ctx.lineTo(leftTop.x, leftTop.y);
+            ctx.lineTo(leftBot.x, leftBot.y);
+            ctx.lineTo(rightBot.x, rightBot.y);
+            ctx.lineTo(rightTop.x, rightTop.y);
+            ctx.lineTo(canvas.width, rightTop.y);
+            ctx.lineTo(canvas.width, canvas.height);
+            ctx.lineTo(0, canvas.height);
+            ctx.closePath();
+            ctx.fill();
+
+            // 3. Draw Cutback Highlight Outline
+            ctx.strokeStyle = '#fbbf24'; // Warning yellow
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(leftTop.x, leftTop.y);
+            ctx.lineTo(leftBot.x, leftBot.y);
+            ctx.lineTo(rightBot.x, rightBot.y);
+            ctx.lineTo(rightTop.x, rightTop.y);
+            ctx.stroke();
+
+            // 4. Draw Excavation Base Flat Area
+            ctx.fillStyle = '#292524'; // Shaded dirt trench floor
+            ctx.beginPath();
+            ctx.moveTo(leftBot.x, leftBot.y);
+            ctx.lineTo(rightBot.x, rightBot.y);
+            ctx.lineTo(rightBot.x, rightBot.y + 15);
+            ctx.lineTo(leftBot.x, leftBot.y + 15);
+            ctx.closePath();
+            ctx.fill();
+
+            // 5. Draw Spoil Pile Illustration (Placed > 2 feet away legally)
+            const safeSetbackPx = 2 * scale; // OSHA 2 foot spoil pile rule
+            ctx.fillStyle = '#78350f'; // Lighter soil brown
+            ctx.beginPath();
+            ctx.moveTo(rightTop.x + safeSetbackPx, rightTop.y);
+            ctx.lineTo(rightTop.x + safeSetbackPx + (1.5 * scale), rightTop.y - (1.2 * scale));
+            ctx.lineTo(rightTop.x + safeSetbackPx + (3.5 * scale), rightTop.y);
+            ctx.closePath();
+            ctx.fill();
+
+            // Label Spoil Pile Warning
+            ctx.fillStyle = '#f87171';
+            ctx.font = 'bold 12px sans-serif';
+            ctx.fillText("SPOIL PILE (> 2ft setback)", rightTop.x + safeSetbackPx, rightTop.y - (1.5 * scale));
+
+            // 6. Draw Analytical Dimension Line Overlays
+            ctx.strokeStyle = '#38bdf8'; // Sky blue indicator lines
+            ctx.lineWidth = 1.5;
+            ctx.fillStyle = '#38bdf8';
+            ctx.font = '14px sans-serif';
+
+            // Vertical Depth Indicator Line
+            ctx.beginPath();
+            ctx.moveTo(cx, leftTop.y);
+            ctx.lineTo(cx, cy);
+            ctx.stroke();
+            ctx.fillText(`${depth.toFixed(1)} ft DEPTH (V)`, cx + 10, cy - (depthPx / 2));
+
+            // Horizontal Left Setback Run Line
+            ctx.strokeStyle = '#f472b6'; // Pink for Run lines
+            ctx.fillStyle = '#f472b6';
+            ctx.beginPath();
+            ctx.moveTo(leftTop.x, leftTop.y);
+            ctx.lineTo(leftBot.x, leftTop.y);
+            ctx.stroke();
+            ctx.fillText(`Run: ${setback.toFixed(1)} ft`, leftTop.x + 10, leftTop.y - 10);
+
+            // Floor Width Line
+            ctx.strokeStyle = '#a855f7'; // Purple for Floor width
+            ctx.fillStyle = '#a855f7';
+            ctx.beginPath();
+            ctx.moveTo(leftBot.x, cy + 20);
+            ctx.lineTo(rightBot.x, cy + 20);
+            ctx.stroke();
+            ctx.fillText(`${bottomWidth.toFixed(1)} ft Base`, cx - 20, cy + 38);
+
+            // Angle Measurement Display Curve
+            ctx.strokeStyle = '#22d3ee'; // Cyan for Angle arc
+            ctx.fillStyle = '#22d3ee';
+            ctx.beginPath();
+            ctx.arc(leftBot.x, leftBot.y, 40, 0, -angle * (Math.PI / 180), true);
+            ctx.stroke();
+            ctx.fillText(`${angle}°`, leftBot.x + 45, leftBot.y - 15);
+        }
+
+        // Event hooks
+        soilTypeSelect.addEventListener('change', recalculateTrenchGeometry);
+        trenchDepthInput.addEventListener('input', recalculateTrenchGeometry);
+        trenchWidthInput.addEventListener('input', recalculateTrenchGeometry);
+
+        // Run baseline setup immediately on boot loading pass
+        recalculateTrenchGeometry();
+    </script>
+    <a href="../" style="display:inline-block; margin-bottom:20px; color:#666; text-decoration:none;">← Back to Hub</a>
+
+</body>
+</html>

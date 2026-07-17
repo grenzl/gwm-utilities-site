@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Social Media Safe-Zone & UI Overlay Tool | SafeZone Studio</title>
+  <meta name="description" content="Check if your TikTok, Instagram Reels, or YouTube Shorts videos are blocked by UI icons. Upload your frame and test layout safe zones instantly.">
+  
+  <!-- Tailwind CSS & FontAwesome Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    .drag-over {
+      border-color: #3b82f6 !important;
+      background-color: rgba(59, 130, 246, 0.1) !important;
+    }
+    .preview-canvas-container {
+      aspect-ratio: 9 / 16;
+      max-height: 68vh;
+    }
+    .ui-overlay {
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .blocked-zone {
+      background-color: rgba(239, 68, 68, 0.22);
+      border: 1px dashed #ef4444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen flex flex-col font-sans">
+
+  <!-- Navigation / Brand Header -->
+  <header class="border-b border-gray-800 bg-gray-900/50 backdrop-blur px-6 py-4">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <a href="../" class="flex items-center gap-3 group">
+        <div class="p-2.5 bg-blue-600 rounded-lg text-white group-hover:bg-blue-500 transition-colors">
+          <i class="fa-solid fa-arrow-left text-lg"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg leading-tight text-white group-hover:text-blue-400 transition-colors">SafeZone Studio</h1>
+          <p class="text-xs text-gray-400">Back to Utility Tool Belt Directory</p>
+        </div>
+      </a>
+      <div class="text-xs text-gray-400 bg-gray-800/80 px-3 py-1.5 rounded-full border border-gray-700">
+        <i class="fa-solid fa-lock text-emerald-500 mr-1.5"></i> Privacy Guaranteed: Images processed locally
+      </div>
+    </div>
+  </header>
+
+  <!-- Top Ad Unit Holder (Highly Recommended for Above-the-Fold CTR) -->
+  <div class="w-full max-w-6xl mx-auto px-4 mt-4">
+    <div class="bg-gray-900/40 border border-gray-800 rounded-lg p-2 text-center text-xs text-gray-500 min-h-[90px] flex items-center justify-center">
+      <!-- ADSENSE PLACEHOLDER -->
+      <span>[Advertisement Banner - Responsive Unit]</span>
+      <!-- Example Tag to Paste Here: 
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> 
+      -->
+    </div>
+  </div>
+
+  <!-- Main Workstation Grid -->
+  <main class="flex-grow max-w-6xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+    
+    <!-- Controls (Left 4 Columns) -->
+    <div class="lg:col-span-4 flex flex-col gap-6">
+      
+      <!-- Upload Card -->
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-5 shadow-xl">
+        <h2 class="font-semibold text-xs uppercase tracking-wider text-blue-400 mb-3 flex items-center gap-2">
+          <i class="fa-solid fa-file-arrow-up"></i> 1. Upload Video Screenshot
+        </h2>
+        
+        <div id="drop-zone" class="border-2 border-dashed border-gray-700 hover:border-gray-500 transition-colors rounded-lg p-6 text-center cursor-pointer flex flex-col items-center justify-center gap-2">
+          <i class="fa-solid fa-cloud-arrow-up text-3xl text-gray-500 mb-1"></i>
+          <p class="text-sm font-medium">Drag & drop image here</p>
+          <p class="text-xs text-gray-500">or click to browse</p>
+          <input type="file" id="file-input" accept="image/*" class="hidden">
+        </div>
+
+        <div id="file-info" class="mt-3 text-xs text-gray-400 hidden flex items-center justify-between bg-gray-800/50 p-2 rounded">
+          <span class="truncate max-w-[200px]" id="filename">image.jpg</span>
+          <button id="remove-file" class="text-red-400 hover:text-red-300"><i class="fa-solid fa-trash"></i></button>
+        </div>
+      </div>
+
+      <!-- Platform Selection Card -->
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-5 shadow-xl">
+        <h2 class="font-semibold text-xs uppercase tracking-wider text-blue-400 mb-3 flex items-center gap-2">
+          <i class="fa-solid fa-layer-group"></i> 2. Target Platform Overlay
+        </h2>
+        
+        <div class="flex flex-col gap-2">
+          <button onclick="switchPlatform('tiktok')" id="btn-tiktok" class="platform-btn w-full flex items-center justify-between p-3 rounded-lg border border-blue-500 bg-blue-500/10 hover:bg-blue-500/20 text-left transition-all">
+            <span class="flex items-center gap-3 font-medium text-sm">
+              <i class="fa-brands fa-tiktok text-lg text-pink-500"></i> TikTok Safe Zone
+            </span>
+            <i class="fa-solid fa-circle-check text-blue-500" id="check-tiktok"></i>
+          </button>
+          
+          <button onclick="switchPlatform('reels')" id="btn-reels" class="platform-btn w-full flex items-center justify-between p-3 rounded-lg border border-gray-800 bg-gray-800/40 hover:bg-gray-800/80 text-left transition-all">
+            <span class="flex items-center gap-3 font-medium text-sm">
+              <i class="fa-brands fa-instagram text-lg text-purple-500"></i> Instagram Reels
+            </span>
+            <i class="fa-solid fa-circle-check text-transparent" id="check-reels"></i>
+          </button>
+          
+          <button onclick="switchPlatform('shorts')" id="btn-shorts" class="platform-btn w-full flex items-center justify-between p-3 rounded-lg border border-gray-800 bg-gray-800/40 hover:bg-gray-800/80 text-left transition-all">
+            <span class="flex items-center gap-3 font-medium text-sm">
+              <i class="fa-brands fa-youtube text-lg text-red-500"></i> YouTube Shorts
+            </span>
+            <i class="fa-solid fa-circle-check text-transparent" id="check-shorts"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Adjustments Card -->
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-5 shadow-xl">
+        <h2 class="font-semibold text-xs uppercase tracking-wider text-blue-400 mb-3 flex items-center gap-2">
+          <i class="fa-solid fa-sliders"></i> 3. Visibility Controls
+        </h2>
+        
+        <div class="flex flex-col gap-3.5">
+          <label class="flex items-center justify-between cursor-pointer">
+            <span class="text-sm font-medium text-gray-300">Show Bounded Danger Zones</span>
+            <input type="checkbox" id="toggle-safety-box" checked class="sr-only peer">
+            <div class="w-9 h-5 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600 relative"></div>
+          </label>
+
+          <div class="flex flex-col gap-1.5">
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-300">Overlay Transparency</span>
+              <span class="text-xs text-blue-400" id="opacity-label">85%</span>
+            </div>
+            <input type="range" id="ui-opacity" min="0" max="100" value="85" class="w-full accent-blue-500 h-1.5 bg-gray-800 rounded-lg appearance-none cursor-pointer">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Live Workspace Panel (Right 8 Columns) -->
+    <div class="lg:col-span-8 flex flex-col items-center justify-center bg-gray-900/40 border border-gray-800 rounded-2xl p-6 relative min-h-[500px]">
+      
+      <!-- Interactive Container mimicking mobile screens (9:16) -->
+      <div class="preview-canvas-container w-full max-w-[340px] relative rounded-2xl overflow-hidden bg-black border border-gray-800 shadow-2xl flex items-center justify-center">
+        
+        <!-- Live Upload Target -->
+        <img id="uploaded-image" class="absolute inset-0 w-full h-full object-cover hidden z-0" alt="Video frame preview">
+        
+        <!-- Interactive Fallback Dashboard screen -->
+        <div id="canvas-placeholder" class="z-10 flex flex-col items-center justify-center text-center p-6 select-none">
+          <div class="w-14 h-14 bg-gray-800 rounded-full flex items-center justify-center mb-4 text-gray-400">
+            <i class="fa-regular fa-image text-2xl"></i>
+          </div>
+          <p class="text-sm font-semibold text-gray-300">No Image Uploaded</p>
+          <p class="text-xs text-gray-500 mt-2 max-w-[200px]">Import a sample render or mockup frame on the left panel to begin testing.</p>
+        </div>
+
+        <!-- ================= TIKTOK INTERACTION OVERLAY ================= -->
+        <div id="overlay-tiktok" class="ui-overlay absolute inset-0 z-20 flex flex-col justify-between">
+          <div class="safety-zone-box blocked-zone h-[13%] w-full">Top UI Obstruction Zone</div>
+          
+          <!-- Mid-right dynamic status buttons -->
+          <div class="absolute right-2 bottom-[18%] flex flex-col items-center gap-3.5 z-20 text-[10px]">
+            <div class="flex flex-col items-center relative">
+              <div class="w-9 h-9 rounded-full border-2 border-white bg-gray-700 flex items-center justify-center"><i class="fa-solid fa-user text-white"></i></div>
+              <div class="absolute -bottom-1 bg-red-500 text-[8px] text-white rounded-full px-1"><i class="fa-solid fa-plus scale-75"></i></div>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="w-9 h-9 rounded-full bg-black/40 flex items-center justify-center text-lg"><i class="fa-solid fa-heart text-white"></i></div>
+              <span class="font-bold text-white scale-75">Like</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="w-9 h-9 rounded-full bg-black/40 flex items-center justify-center text-lg"><i class="fa-solid fa-comment-dots text-white"></i></div>
+              <span class="font-bold text-white scale-75">4.5K</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="w-9 h-9 rounded-full bg-black/40 flex items-center justify-center text-lg"><i class="fa-solid fa-share text-white"></i></div>
+              <span class="font-bold text-white scale-75">Share</span>
+            </div>
+          </div>
+
+          <div class="safety-zone-box blocked-zone h-[25%] w-full mt-auto flex items-end pb-3">
+            <div class="text-center w-full pb-1">Bottom Metadata & Captions Zone</div>
+          </div>
+          <div class="safety-zone-box blocked-zone absolute right-0 top-[13%] bottom-[25%] w-[15%]">Sidebar</div>
+        </div>
+
+        <!-- ================= INSTAGRAM REELS INTERACTION OVERLAY ================= -->
+        <div id="overlay-reels" class="ui-overlay absolute inset-0 z-20 flex flex-col justify-between hidden">
+          <div class="safety-zone-box blocked-zone h-[10%] w-full">Top Header Zone</div>
+
+          <div class="absolute right-2.5 bottom-[16%] flex flex-col items-center gap-4 z-20 text-[10px] space-y-1">
+            <div class="flex flex-col items-center text-white"><i class="fa-solid fa-heart text-2xl"></i><span class="font-medium mt-1 scale-75">Like</span></div>
+            <div class="flex flex-col items-center text-white"><i class="fa-solid fa-comment text-2xl"></i><span class="font-medium mt-1 scale-75">820</span></div>
+            <div class="flex flex-col items-center text-white"><i class="fa-solid fa-paper-plane text-2xl"></i></div>
+            <div class="flex flex-col items-center text-white"><i class="fa-solid fa-ellipsis text-xl"></i></div>
+          </div>
+
+          <div class="safety-zone-box blocked-zone h-[20%] w-full mt-auto flex items-end pb-4">
+            <div class="text-center w-full">Reels Caption & Account Details</div>
+          </div>
+          <div class="safety-zone-box blocked-zone absolute right-0 top-[10%] bottom-[20%] w-[15%]">Sidebar</div>
+        </div>
+
+        <!-- ================= YOUTUBE SHORTS INTERACTION OVERLAY ================= -->
+        <div id="overlay-shorts" class="ui-overlay absolute inset-0 z-20 flex flex-col justify-between hidden">
+          <div class="safety-zone-box blocked-zone h-[8%] w-full">Top Shorts Status Bar</div>
+
+          <div class="safety-zone-box blocked-zone h-[18%] w-full mt-auto flex items-end pb-3">
+            <div class="text-center w-full">Shorts Channel Info & Description</div>
+          </div>
+
+          <div class="absolute right-2 bottom-[14%] flex flex-col items-center gap-4 z-20 text-[10px] space-y-1">
+            <div class="flex flex-col items-center text-white"><i class="fa-solid fa-thumbs-up text-2xl"></i><span class="font-bold mt-1 scale-75">Like</span></div>
+            <div class="flex flex-col items-center text-white"><i class="fa-solid fa-thumbs-down text-2xl"></i><span class="font-bold mt-1 scale-75">Dislike</span></div>
+            <div class="flex flex-col items-center text-white"><i class="fa-solid fa-message text-2xl"></i><span class="font-bold mt-1 scale-75">Comments</span></div>
+            <div class="flex flex-col items-center text-white"><i class="fa-solid fa-share text-2xl"></i><span class="font-bold mt-1 scale-75">Share</span></div>
+          </div>
+          <div class="safety-zone-box blocked-zone absolute right-0 top-[8%] bottom-[18%] w-[15%]">Sidebar</div>
+        </div>
+
+      </div>
+
+      <!-- Warning dynamic tags -->
+      <div id="aspect-ratio-warning" class="mt-4 text-xs bg-yellow-500/10 text-yellow-500 px-3 py-1.5 border border-yellow-500/20 rounded-lg hidden text-center max-w-sm">
+        <i class="fa-solid fa-circle-exclamation mr-1"></i> Aspect ratio differs from standard vertical 9:16. Elements may shift slightly on export.
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Sidebar Ad Integration Unit (For Maximizing Page RPM) -->
+  <div class="w-full max-w-6xl mx-auto px-4 mb-8">
+    <div class="bg-gray-900/40 border border-gray-800 rounded-lg p-2 text-center text-xs text-gray-500 min-h-[90px] flex items-center justify-center">
+      <!-- ADSENSE PLACEHOLDER -->
+      <span>[Advertisement Banner - Mid Page Placement]</span>
+    </div>
+  </div>
+
+  <!-- Detailed, Keyword-Rich Guide (Critical for AdSense Crawlers) -->
+  <section class="bg-gray-900 border-t border-gray-800 p-6 md:p-10 text-sm text-gray-400">
+    <div class="max-w-4xl mx-auto space-y-6">
+      
+      <div>
+        <h2 class="text-xl font-bold text-white mb-2">Understanding Social Media Video Safe Zones</h2>
+        <p class="leading-relaxed">
+          When creating vertical videos (9:16 aspect ratio) for popular platforms like TikTok, Instagram Reels, and YouTube Shorts, optimizing your layout is key. Because each application overlays its native user interface (UI)—such as profile badges, description margins, captions, and interactive sharing options—your videos can easily look cluttered if text, subtitles, or crucial action frames overlap with these icons. Our <strong>Social Media Safe Zone Checker</strong> simulates these visual elements directly in your browser.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-gray-950 p-4 rounded-lg border border-gray-800">
+          <h3 class="font-bold text-white mb-1.5"><i class="fa-brands fa-tiktok text-pink-500 mr-2"></i>TikTok Specifications</h3>
+          <p class="text-xs leading-relaxed">
+            TikTok has the densest UI obstruction map. The top 13% is occupied by navigation tabs, and the bottom 25% is fully obscured by captions, usernames, and music tags. The right-side interaction bar covers approximately 15% of the right border.
+          </p>
+        </div>
+        <div class="bg-gray-950 p-4 rounded-lg border border-gray-800">
+          <h3 class="font-bold text-white mb-1.5"><i class="fa-brands fa-instagram text-purple-500 mr-2"></i>Instagram Reels Specs</h3>
+          <p class="text-xs leading-relaxed">
+            Reels offer slightly more vertical margin. The top header covers 10% for the navigation bars. The bottom caption section is lower (occupying about 20% of the screen height), and the right sidebar spans roughly 15% of the frame.
+          </p>
+        </div>
+        <div class="bg-gray-950 p-4 rounded-lg border border-gray-800">
+          <h3 class="font-bold text-white mb-1.5"><i class="fa-brands fa-youtube text-red-500 mr-2"></i>YouTube Shorts Specs</h3>
+          <p class="text-xs leading-relaxed">
+            YouTube Shorts feature a minimal top overlay (8%), but the right-side feedback buttons (Like/Dislike/Share) sit wide, blocking 15% of the lower-right area. The lower 18% of the frame is obscured by channel details.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-bold text-white mb-2">Design Best Practices for Vertical Mobile Formats</h3>
+        <ul class="list-disc pl-5 space-y-2 leading-relaxed">
+          <li><strong>Keep Subtitles Centered:</strong> Keep your captions centered horizontally. Placing them too close to the bottom of the screen blocks readability on TikTok.</li>
+          <li><strong>Avoid Corner Overlap:</strong> Avoid placing logos, graphic watermarks, or important callouts in the upper right-hand corner or along the bottom margins.</li>
+          <li><strong>Mind the 9:16 Aspect Ratio:</strong> Ensure your workspace exports are exactly 1080px wide by 1920px tall to guarantee that the UI overlays align precisely with mobile layouts.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Script Logic -->
+  <script>
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const fileInfo = document.getElementById('file-info');
+    const filename = document.getElementById('filename');
+    const removeFile = document.getElementById('remove-file');
+    const uploadedImg = document.getElementById('uploaded-image');
+    const placeholder = document.getElementById('canvas-placeholder');
+    const aspectWarning = document.getElementById('aspect-ratio-warning');
+    const toggleSafety = document.getElementById('toggle-safety-box');
+    const opacitySlider = document.getElementById('ui-opacity');
+    const opacityLabel = document.getElementById('opacity-label');
+
+    let activePlatform = 'tiktok';
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', handleFileSelect);
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); }, false);
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => { e.preventDefault(); dropZone.classList.remove('drag-over'); }, false);
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      if(dt.files.length > 0) {
+        fileInput.files = dt.files;
+        handleFileSelect();
+      }
+    });
+
+    function handleFileSelect() {
+      const file = fileInput.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedImg.src = e.target.result;
+          uploadedImg.classList.remove('hidden');
+          placeholder.classList.add('hidden');
+          filename.textContent = file.name;
+          fileInfo.classList.remove('hidden');
+
+          const tempImg = new Image();
+          tempImg.src = e.target.result;
+          tempImg.onload = function() {
+            const aspect = this.width / this.height;
+            if(Math.abs(aspect - (9/16)) > 0.15) {
+              aspectWarning.classList.remove('hidden');
+            } else {
+              aspectWarning.classList.add('hidden');
+            }
+          }
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    removeFile.addEventListener('click', () => {
+      fileInput.value = '';
+      uploadedImg.src = '';
+      uploadedImg.classList.add('hidden');
+      placeholder.classList.remove('hidden');
+      fileInfo.classList.add('hidden');
+      aspectWarning.classList.add('hidden');
+    });
+
+    function switchPlatform(platform) {
+      activePlatform = platform;
+      document.querySelectorAll('.platform-btn').forEach(btn => {
+        btn.classList.remove('border-blue-500', 'bg-blue-500/10', 'hover:bg-blue-500/20');
+        btn.classList.add('border-gray-800', 'bg-gray-800/40', 'hover:bg-gray-800/80');
+      });
+      document.querySelectorAll('[id^="check-"]').forEach(check => {
+        check.classList.remove('text-blue-500');
+        check.classList.add('text-transparent');
+      });
+
+      const activeBtn = document.getElementById(`btn-${platform}`);
+      activeBtn.classList.remove('border-gray-800', 'bg-gray-800/40');
+      activeBtn.classList.add('border-blue-500', 'bg-blue-500/10');
+      document.getElementById(`check-${platform}`).classList.remove('text-transparent');
+      document.getElementById(`check-${platform}`).classList.add('text-blue-500');
+
+      document.querySelectorAll('.ui-overlay').forEach(over => over.classList.add('hidden'));
+      document.getElementById(`overlay-${platform}`).classList.remove('hidden');
+    }
+
+    opacitySlider.addEventListener('input', (e) => {
+      const val = e.target.value;
+      opacityLabel.textContent = `${val}%`;
+      document.querySelectorAll('.ui-overlay').forEach(layer => layer.style.opacity = val / 100);
+    });
+
+    toggleSafety.addEventListener('change', (e) => {
+      const isVisible = e.target.checked;
+      document.querySelectorAll('.safety-zone-box').forEach(box => {
+        if(isVisible) {
+          box.style.backgroundColor = 'rgba(239, 68, 68, 0.22)';
+          box.style.border = '1px dashed #ef4444';
+          box.style.color = '#fff';
+        } else {
+          box.style.backgroundColor = 'transparent';
+          box.style.border = 'none';
+          box.style.color = 'transparent';
+        }
+      });
+    });
+  </script>
+  <a href="../" style="display:inline-block; margin-bottom:20px; color:#666; text-decoration:none;">← Back to Hub</a>
+
+</body>
+</html>

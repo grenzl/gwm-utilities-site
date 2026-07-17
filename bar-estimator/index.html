@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Liquor & Event Bar Staffing Estimator</title>
+    <meta name="description" content="Calculate legal bartender-to-guest staffing ratios and precise liquor, wine, and beer bottle shopping lists for events based on duration and guest counts.">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        /* Interactive Ad Slots for monetization deployment */
+        .ad-slot-wrapper {
+            background: #111827;
+            border: 2px dashed #374151;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 0.85rem;
+            margin: 1.5rem 0;
+            border-radius: 0.75rem;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased">
+
+    <!-- Navbar Header -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl">🍸</span>
+                <span class="font-bold text-lg tracking-tight bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">BarMetrics Pro</span>
+            </div>
+            <span class="text-xs font-semibold bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/30">Hospitality Compliance Tool</span>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        
+        <!-- Header Introduction -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-2 tracking-tight">Legal Liquor & Bar Staffing Estimator</h1>
+            <p class="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">Ensure municipal compliance with staffing ratios and calculate a precise commercial alcohol inventory order.</p>
+        </div>
+
+        <!-- Upper Banner Ad Slot -->
+        <div class="ad-slot-wrapper"><!-- [Insert Google AdSense Leaderboard Here] --></div>
+
+        <!-- Dynamic Utility Grid Workspace -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start mb-12">
+            
+            <!-- Controls Form Block -->
+            <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-2xl lg:col-span-1 space-y-5">
+                <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                    <span>📋</span> Event Metrics
+                </h2>
+                
+                <!-- Guest Count Input -->
+                <div>
+                    <label for="guestCount" class="block text-xs font-medium text-slate-400 mb-1">Total Guest Count</label>
+                    <input type="number" id="guestCount" value="150" min="1" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <!-- Event Duration Input -->
+                <div>
+                    <label for="eventHours" class="block text-xs font-medium text-slate-400 mb-1">Event Duration (Hours)</label>
+                    <input type="number" id="eventHours" value="4" min="1" max="24" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <!-- Event Vibe / Type Selector -->
+                <div>
+                    <label for="eventType" class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Event Atmosphere & Vibe</label>
+                    <select id="eventType" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-emerald-500 text-sm">
+                        <!-- Values determine drink-split distributions (Liquor, Wine, Beer) -->
+                        <option value="balanced" selected>Standard Balanced (Wedding/Gala) | 35% Liq, 35% Wine, 30% Beer</option>
+                        <option value="heavy-liquor">High-End Cocktail Focus | 50% Liq, 25% Wine, 25% Beer</option>
+                        <option value="beer-wine">Casual Beer & Wine Only | 0% Liq, 55% Wine, 45% Beer</option>
+                        <option value="corporate">Daytime Corporate Event | 20% Liq, 45% Wine, 35% Beer</option>
+                    </select>
+                </div>
+
+                <!-- Custom Cost Estimation Toggle -->
+                <div class="border-t border-slate-800 pt-4">
+                    <label for="averageBottleCost" class="block text-xs font-medium text-slate-400 mb-1">Average Cost per Bottle ($)</label>
+                    <input type="number" id="averageBottleCost" value="25.00" step="0.50" min="0" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-emerald-500">
+                </div>
+            </div>
+
+            <!-- Visualizer Outputs Display Card Column -->
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- Analytical Result Cards -->
+                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-2xl space-y-6">
+                    
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                            <span>📋</span> Staffing & Supply Estimates
+                        </h2>
+                        <span class="text-[10px] uppercase font-bold px-2.5 py-1 bg-slate-800 text-emerald-400 rounded tracking-wider border border-slate-700">Calculations Complete</span>
+                    </div>
+
+                    <!-- Staffing & Safety Warnings Display -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <span class="text-xs text-slate-400 block uppercase tracking-wider font-semibold mb-1">Required Bartenders</span>
+                            <div class="text-3xl font-extrabold text-emerald-400" id="outBartenders">2 Staff</div>
+                            <div class="text-xs text-slate-500 mt-1" id="outRatioRule">Based on standard 1 per 75 guest safety ratio.</div>
+                        </div>
+
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <span class="text-xs text-slate-400 block uppercase tracking-wider font-semibold mb-1">Estimated Total Drinks Served</span>
+                            <div class="text-3xl font-extrabold text-white" id="outTotalDrinks">600 Drinks</div>
+                            <div class="text-xs text-slate-500 mt-1">Calculated at standard 2 drinks first hour, 1/hr after.</div>
+                        </div>
+                    </div>
+
+                    <!-- Precise Commercial Shopping List -->
+                    <div class="space-y-3">
+                        <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider">Required Inventory Shopping List</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <!-- Spirits -->
+                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-bold text-slate-400 uppercase">Spirits (750ml)</span>
+                                    <span class="text-xs font-semibold text-emerald-400" id="pctLiquor">35%</span>
+                                </div>
+                                <div class="text-2xl font-bold text-white" id="outLiquorBottles">0</div>
+                                <span class="text-[11px] text-slate-500" id="outLiquorServings">0 standard pours</span>
+                            </div>
+
+                            <!-- Wine -->
+                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-bold text-slate-400 uppercase">Wine (750ml)</span>
+                                    <span class="text-xs font-semibold text-emerald-400" id="pctWine">35%</span>
+                                </div>
+                                <div class="text-2xl font-bold text-white" id="outWineBottles">0</div>
+                                <span class="text-[11px] text-slate-500" id="outWineServings">0 standard pours</span>
+                            </div>
+
+                            <!-- Beer -->
+                            <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-xs font-bold text-slate-400 uppercase">Beer (Individual)</span>
+                                    <span class="text-xs font-semibold text-emerald-400" id="pctBeer">30%</span>
+                                </div>
+                                <div class="text-2xl font-bold text-white" id="outBeerUnits">0</div>
+                                <span class="text-[11px] text-slate-500" id="outBeerServings">0 standard pours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Estimated Budget -->
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <span class="text-xs text-slate-400 block uppercase tracking-wider font-semibold">Estimated Inventory Cost</span>
+                            <p class="text-[10px] text-slate-500">Excludes mixers, ice, garnish, and staff wages.</p>
+                        </div>
+                        <div class="text-2xl font-extrabold text-emerald-400" id="outTotalCost">$0.00</div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Middle Native Article Ad Banner -->
+        <div class="ad-slot-wrapper"><!-- [Insert Google AdSense In-Article Native Code Here] --></div>
+
+        <!-- ============================================================== -->
+        <!-- PREMIUM AD NETWORK HIGH-VALUE TEXT LAYER                       -->
+        <!-- ============================================================== -->
+        <section class="prose prose-invert max-w-4xl mx-auto border-t border-slate-800 pt-12 mt-12 text-slate-300 space-y-6 text-sm md:text-base leading-relaxed">
+            <h2 class="text-2xl font-extrabold text-white tracking-tight">Legal Compliance, Liability Management, and Beverage Math in Event Planning</h2>
+            <p>
+                In corporate event production, wedding coordination, and festival management, operating a temporary bar involves complex safety regulations. Beyond the logistical task of keeping beverages cold, event planners must navigate strict **Dram Shop laws**, local **Alcoholic Beverage Control (ABC)** regulations, and municipal safety ordinances. 
+            </p>
+            <p>
+                Operating an understaffed bar does more than cause long lines; it creates a liability risk. When a bartender is overwhelmed, their capacity to accurately gauge guest intoxication levels or verify identification drops. This dramatically increases the risk of serving minors or over-serving guests, which can expose host organizations to significant liability.
+            </p>
+            
+            <h3 class="text-lg font-bold text-white mt-6">1. Calculating Legal Bartender-to-Guest Staffing Ratios</h3>
+            <p>
+                As a standard safety baseline, municipal event ordinances and venue insurance policies mandate minimum service-staffing ratios. This calculation ensures orderly service and prevents crowd-control issues near bar stations:
+            </p>
+            <ul class="list-disc list-inside space-y-2 text-slate-400 pl-4">
+                <li><strong>Under 75 Guests:</strong> 1 Bartender is required.</li>
+                <li><strong>75 to 150 Guests:</strong> A minimum of 2 Bartenders is recommended. At this scale, adding a dedicated bar-back (assistant) is highly recommended to manage ice, glassware, and stock.</li>
+                <li><strong>Over 150 Guests:</strong> 1 Bartender for every 75 additional guests is the regulatory safety standard. For specialized craft cocktail menus, this ratio must be increased to 1 bartender per 50 guests to prevent service bottlenecks.</li>
+            </ul>
+
+            <h3 class="text-lg font-bold text-white mt-6">2. The "Standard Drink" Beverage Formula</h3>
+            <p>
+                To build an accurate inventory shopping list, you must first calculate the total volume of standard drinks expected during the event. The industry standard formula for calculating consumption rates over a given timeframe is:
+            </p>
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 font-mono text-center text-xs my-4 text-emerald-400">
+                Total Drinks = Guest Count * [ 2 (First Hour) + (1 * (Event Hours - 1)) ]
+            </div>
+            <p>
+                This equation accounts for the biological reality that guests consume alcohol at a faster rate during the introductory hour of an event (cocktail hours or arrivals) and steady their intake to roughly one standard drink per hour thereafter.
+            </p>
+
+            <h3 class="text-lg font-bold text-white mt-6">3. Converting Total Drinks Into Commercial Bottle Inventory</h3>
+            <p>
+                Once the total drink volume is determined, it is split across spirits, wine, and beer based on your chosen event vibe profile. Converting those drink numbers into commercial bottles requires precise conversion factors:
+            </p>
+            <ul class="list-disc list-inside space-y-2 text-slate-400 pl-4">
+                <li><strong>Spirits (750ml Standard Bottle):</strong> A standard 750ml liquor bottle yields exactly **16.9 pours** of 1.5-ounce neat spirits or standard cocktails.</li>
+                <li><strong>Wine (750ml Standard Bottle):</strong> A standard 750ml wine bottle yields exactly **5 pours** of 5-ounce wine servings.</li>
+                <li><strong>Beer:</strong> Tracked individually as single-unit servings (cans or bottles). For draft keg conversions, a standard half-barrel keg yields roughly 165 12-ounce pours.</li>
+            </ul>
+
+            <h3 class="text-lg font-bold text-white mt-6">4. Bar Calculations Quick Reference Table</h3>
+            <div class="overflow-x-auto bg-slate-950 p-2 rounded-xl border border-slate-800">
+                <table class="w-full text-left text-xs md:text-sm text-slate-400">
+                    <thead class="bg-slate-900 text-xs uppercase text-slate-200">
+                        <tr>
+                            <th class="p-3">Beverage Type</th>
+                            <th class="p-3">Standard Serving Size</th>
+                            <th class="p-3">Servings per 750ml Bottle</th>
+                            <th class="p-3">Loss/Spill Buffer Index</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800">
+                        <tr>
+                            <td class="p-3 font-semibold text-white">Spirits / Liquor</td>
+                            <td class="p-3">1.5 oz (45ml)</td>
+                            <td class="p-3">~16-17 pours</td>
+                            <td class="p-3">5% standard pour loss</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold text-white">Wine (Red/White)</td>
+                            <td class="p-3">5.0 oz (150ml)</td>
+                            <td class="p-3">5 pours</td>
+                            <td class="p-3">8% oxidation/spill loss</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-semibold text-white">Beer (Cans/Bottles)</td>
+                            <td class="p-3">12.0 oz (355ml)</td>
+                            <td class="p-3">1 pour (Individual unit)</td>
+                            <td class="p-3">2% structural loss</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Footer Bottom Ad Bracket -->
+        <div class="ad-slot-wrapper"><!-- [Insert Google AdSense Anchor Banner Unit Here] --></div>
+
+    </main>
+
+    <!-- Footer Copyright Block -->
+    <footer class="border-t border-slate-800 bg-slate-950 mt-12 py-6 text-center text-xs text-slate-500">
+        <p>&copy; 2026 BarMetrics Pro. Safe service limits and commercial logistics calculations.</p>
+    </footer>
+
+    <!-- ============================================================== -->
+    <!-- MATH ENGINE RUNTIME ENGINE (PURE CLIENT-SIDE CALCULATOR)       -->
+    <!-- ============================================================== -->
+    <script>
+        // DOM target element hooks
+        const guestCountInput = document.getElementById('guestCount');
+        const eventHoursInput = document.getElementById('eventHours');
+        const eventTypeSelect = document.getElementById('eventType');
+        const bottleCostInput = document.getElementById('averageBottleCost');
+
+        // Results displays selector state handles
+        const outBartenders = document.getElementById('outBartenders');
+        const outRatioRule = document.getElementById('outRatioRule');
+        const outTotalDrinks = document.getElementById('outTotalDrinks');
+        const outLiquorBottles = document.getElementById('outLiquorBottles');
+        const outLiquorServings = document.getElementById('outLiquorServings');
+        const outWineBottles = document.getElementById('outWineBottles');
+        const outWineServings = document.getElementById('outWineServings');
+        const outBeerUnits = document.getElementById('outBeerUnits');
+        const outBeerServings = document.getElementById('outBeerServings');
+        const outTotalCost = document.getElementById('outTotalCost');
+
+        const pctLiquor = document.getElementById('pctLiquor');
+        const pctWine = document.getElementById('pctWine');
+        const pctBeer = document.getElementById('pctBeer');
+
+        function calculateBarMetrics() {
+            // Read inputs
+            const guests = Math.max(0, parseInt(guestCountInput.value) || 0);
+            const hours = Math.max(1, parseInt(eventHoursInput.value) || 1);
+            const vibe = eventTypeSelect.value;
+            const avgCost = Math.max(0, parseFloat(bottleCostInput.value) || 0);
+
+            // 1. Calculate Staffing Ratios (OSHA/ABC Standard: 1 bartender per 75 guests)
+            let bartenders = 1;
+            if (guests > 75) {
+                bartenders = Math.ceil(guests / 75);
+            }
+            outBartenders.innerText = `${bartenders} Staff`;
+            outRatioRule.innerText = `Based on standard safety ratios (1 staff per 75 guests for standard service).`;
+
+            // 2. Calculate Total Estimated Drinks consumed (2 first hour, 1 per hour after)
+            const drinksPerGuest = 2 + (1 * (hours - 1));
+            const totalDrinks = guests * drinksPerGuest;
+            outTotalDrinks.innerText = `${totalDrinks.toLocaleString()} Drinks`;
+
+            // 3. Resolve Beverage Splits
+            let splitLiquor = 0.35;
+            let splitWine = 0.35;
+            let splitBeer = 0.30;
+
+            if (vibe === 'heavy-liquor') {
+                splitLiquor = 0.50;
+                splitWine = 0.25;
+                splitBeer = 0.25;
+            } else if (vibe === 'beer-wine') {
+                splitLiquor = 0.00;
+                splitWine = 0.55;
+                splitBeer = 0.45;
+            } else if (vibe === 'corporate') {
+                splitLiquor = 0.20;
+                splitWine = 0.45;
+                splitBeer = 0.35;
+            }
+
+            // Update percentage visual labels
+            pctLiquor.innerText = `${(splitLiquor * 100).toFixed(0)}%`;
+            pctWine.innerText = `${(splitWine * 100).toFixed(0)}%`;
+            pctBeer.innerText = `${(splitBeer * 100).toFixed(0)}%`;
+
+            // 4. Calculate individual beverage servings
+            const liquorServings = Math.round(totalDrinks * splitLiquor);
+            const wineServings = Math.round(totalDrinks * splitWine);
+            const beerServings = Math.round(totalDrinks * splitBeer);
+
+            outLiquorServings.innerText = `${liquorServings.toLocaleString()} standard pours`;
+            outWineServings.innerText = `${wineServings.toLocaleString()} standard pours`;
+            outBeerServings.innerText = `${beerServings.toLocaleString()} standard pours`;
+
+            // 5. Convert servings into commercial bottles (with standard math round-ups)
+            // 750ml spirits = 16.9 standard drinks (1.5 oz pour)
+            const liquorBottles = Math.ceil(liquorServings / 16.9);
+            // 750ml wine = 5 standard drinks (5 oz pour)
+            const wineBottles = Math.ceil(wineServings / 5);
+            // Beer is single servings
+            const beerUnits = beerServings;
+
+            outLiquorBottles.innerText = liquorBottles.toLocaleString();
+            outWineBottles.innerText = wineBottles.toLocaleString();
+            outBeerUnits.innerText = beerUnits.toLocaleString();
+
+            // 6. Cost Projection (Assuming beer cost is roughly 1/8th of average bottle cost)
+            const liquorCost = liquorBottles * avgCost;
+            const wineCost = wineBottles * avgCost;
+            const beerCost = beerUnits * (avgCost / 8); 
+            const totalCost = liquorCost + wineCost + beerCost;
+
+            outTotalCost.innerText = `$${totalCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        }
+
+        // Add input event listeners to run math on interaction
+        guestCountInput.addEventListener('input', calculateBarMetrics);
+        eventHoursInput.addEventListener('input', calculateBarMetrics);
+        eventTypeSelect.addEventListener('change', calculateBarMetrics);
+        bottleCostInput.addEventListener('input', calculateBarMetrics);
+
+        // Initialize math calculations instantly on first window loading cycle
+        calculateBarMetrics();
+    </script>
+    <a href="../" style="display:inline-block; margin-bottom:20px; color:#666; text-decoration:none;">← Back to Hub</a>
+
+</body>
+</html>
