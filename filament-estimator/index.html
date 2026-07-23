@@ -6,9 +6,8 @@
     <title>3D Printing Filament Weight-to-Length Cost Estimator</title>
     <meta name="description" content="Instantly calculate remaining filament length, cost per print, and print time capacity from spool weight. Support for PLA, ABS, PETG, TPU, and Nylon.">
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://jsdelivr.net"></script>
     <style>
-        /* Interactive Ad Slots for monetization deployment */
         .ad-slot-wrapper {
             background: #111827;
             border: 2px dashed #374151;
@@ -46,13 +45,16 @@
         </div>
 
         <!-- Upper Banner Ad Slot -->
-        <div class="ad-slot-wrapper"><!-- [Insert Google AdSense Leaderboard Here] --></div>
+        <div class="ad-slot-wrapper">
+            <!-- [Insert Google AdSense Leaderboard Here] -->
+            <span class="text-xs uppercase tracking-wider text-gray-600">Advertisement Placeholder</span>
+        </div>
 
         <!-- Dynamic Utility Grid Workspace -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start mb-12">
             
             <!-- Controls Form Block -->
-            <div class="bg-gray-900 p-6 rounded-2xl border border-gray-800 shadow-2xl lg:col-span-1 space-y-5">
+            <form id="calculatorForm" class="bg-gray-900 p-6 rounded-2xl border border-gray-800 shadow-2xl lg:col-span-1 space-y-5" onsubmit="event.preventDefault();">
                 <h2 class="text-lg font-bold text-white flex items-center gap-2">
                     <span>⚙️</span> Material Properties
                 </h2>
@@ -61,7 +63,6 @@
                 <div>
                     <label for="materialType" class="block text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">Filament Material Profile</label>
                     <select id="materialType" class="w-full bg-gray-950 border border-gray-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-orange-500 text-sm">
-                        <!-- Value represents Density (g/cm³) -->
                         <option value="1.24" selected>PLA (Density: 1.24 g/cm³)</option>
                         <option value="1.27">PETG (Density: 1.27 g/cm³)</option>
                         <option value="1.04">ABS (Density: 1.04 g/cm³)</option>
@@ -121,286 +122,32 @@
                         <p class="text-[10px] text-gray-500 mt-1">Standard speeds typically process around 10g - 20g per hour.</p>
                     </div>
                 </div>
-            </div>
+            </form>
 
             <!-- Visualizer Outputs Display Card Column -->
             <div class="lg:col-span-2 space-y-6">
                 
                 <!-- Output Analytics Results Screen -->
                 <div class="bg-gray-900 p-6 rounded-2xl border border-gray-800 shadow-2xl space-y-6">
-                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
-                        <span>📊</span> Real-Time Estimation Profile
-                    </h2>
-
-                    <!-- Main Status Banner -->
-                    <div id="statusAlert" class="p-4 rounded-xl flex items-center gap-3 border transition-colors">
-                        <span id="statusIcon" class="text-2xl"></span>
-                        <div>
-                            <h4 id="statusTitle" class="font-bold text-sm">Initializing Calculation...</h4>
-                            <p id="statusDesc" class="text-xs opacity-80 mt-0.5"></p>
-                        </div>
+                    <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+                        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                            <span>📊</span> Real-Time Estimation Profile
+                        </h2>
+                        <span id="statusBadge" class="text-[10px] uppercase font-bold px-2.5 py-1 bg-green-500/20 text-green-400 rounded tracking-wider border border-green-500/30">Ready</span>
                     </div>
 
-                    <!-- Main Quantitative Metric Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        
-                        <!-- Net Weight Card -->
+                    <!-- Metrics Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="bg-gray-950 p-4 rounded-xl border border-gray-800">
-                            <span class="text-xs text-gray-400 block uppercase tracking-wider font-semibold mb-1">Available Filament</span>
-                            <div class="text-2xl font-bold text-white" id="outNetWeight">0 g</div>
-                            <div class="text-xs text-gray-500 mt-1" id="outNetLength">~0.0 meters left</div>
+                            <span class="text-xs text-gray-400 block uppercase tracking-wider font-semibold mb-1">Available Net Filament</span>
+                            <div class="text-3xl font-extrabold text-orange-400" id="outAvailableWeight">0 g</div>
+                            <div class="text-xs text-gray-500 mt-1" id="outAvailableLength">~0.0 meters left</div>
                         </div>
 
-                        <!-- Cost Estimator Card -->
                         <div class="bg-gray-950 p-4 rounded-xl border border-gray-800">
                             <span class="text-xs text-gray-400 block uppercase tracking-wider font-semibold mb-1">Specific Print Cost</span>
-                            <div class="text-2xl font-bold text-emerald-400" id="outPrintCost">$0.00</div>
+                            <div class="text-3xl font-extrabold text-white" id="outPrintCost">$0.00</div>
                             <div class="text-xs text-gray-500 mt-1" id="outCostPerGram">Cost per gram: $0.00</div>
                         </div>
 
-                        <!-- Printing Time Capacity Card -->
                         <div class="bg-gray-950 p-4 rounded-xl border border-gray-800">
-                            <span class="text-xs text-gray-400 block uppercase tracking-wider font-semibold mb-1">Est. Time Capacity</span>
-                            <div class="text-2xl font-bold text-orange-400" id="outTimeCapacity">0.0 hours</div>
-                            <div class="text-xs text-gray-500 mt-1">At specified printing flow rates</div>
-                        </div>
-
-                    </div>
-
-                    <!-- Spool Level Progress Bar Visualization -->
-                    <div class="space-y-2 pt-2">
-                        <div class="flex justify-between text-xs font-semibold text-gray-400">
-                            <span>Remaining Filament Level</span>
-                            <span id="spoolPercentageText">0%</span>
-                        </div>
-                        <div class="w-full bg-gray-950 h-3 rounded-full overflow-hidden border border-gray-800">
-                            <div id="spoolProgressBar" class="bg-gradient-to-r from-red-500 via-amber-500 to-green-500 h-full transition-all duration-300" style="width: 0%"></div>
-                        </div>
-                        <p class="text-[11px] text-gray-500 italic text-right">Calculated relative to an assumed standard 1kg fresh filament inventory.</p>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-
-        <!-- Middle Native Article Ad Banner -->
-        <div class="ad-slot-wrapper"><!-- [Insert Google AdSense In-Article Native Code Here] --></div>
-
-        <!-- ============================================================== -->
-        <!-- PREMIUM AD NETWORK HIGH-VALUE TEXT LAYER                       -->
-        <!-- ============================================================== -->
-        <section class="prose prose-invert max-w-4xl mx-auto border-t border-gray-800 pt-12 mt-12 text-gray-300 space-y-6 text-sm md:text-base leading-relaxed">
-            <h2 class="text-2xl font-extrabold text-white tracking-tight">Understanding the Physics of Filament Sizing: Why Slicers Measure by Length, But Vendors Sell by Weight</h2>
-            <p>
-                In desktop additive manufacturing, material constraints determine whether a printing job succeeds or fails halfway through. When preparing design coordinates within slicer software engines (such as Cura, PrusaSlicer, or Bambu Studio), the software translates 3D computer designs into physical instructions (G-code parameters). Because the internal hardware processes plastic dynamically via feed gears, the slicer tracks output progress utilizing the parameter of **linear filament length** (e.g., "This design requires 42 meters of plastic").
-            </p>
-            <p>
-                However, when purchasing material, vendors measure inventory by **mass** (typically 1-kilogram raw spools). This creates an immediate measurement conflict. To successfully calculate if you have enough filament remaining, you must map the material's structural thickness and density to its physical mass.
-            </p>
-            
-            <h3 class="text-lg font-bold text-white mt-6">1. The Trigonometry and Physics Behind the Mathematics</h3>
-            <p>
-                Converting linear filament lengths into volume, and subsequently mass, relies on the volume formula of a cylinder:
-            </p>
-            <div class="bg-gray-950 p-4 rounded-xl border border-gray-800 font-mono text-center text-xs my-4 text-orange-400">
-                Volume (V) = π * r² * h &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; Mass (m) = Volume * Density (ρ)
-            </div>
-            <p>
-                Where standard variable configurations are modeled as:
-            </p>
-            <ul class="list-disc list-inside space-y-2 text-gray-400 pl-4">
-                <li><strong>Radius (r):</strong> Exactly half of the material's diameter specification (e.g., 0.875mm for standard 1.75mm lines).</li>
-                <li><strong>Height (h):</strong> The linear output length required (often tracked in millimeters or meters).</li>
-                <li><strong>Density (ρ):</strong> The specific chemical density index of the material formulation (typically measured in grams per cubic centimeter).</li>
-            </ul>
-
-            <h3 class="text-lg font-bold text-white mt-6">2. Chemical Density Profiles of Standard Thermoplastics</h3>
-            <p>
-                Not all 3D printing materials weigh the same. Even if two spools have identical diameters and are wound to the exact same length, their weights will differ because of their molecular compositions:
-            </p>
-            <ul class="list-disc list-inside space-y-2 text-gray-400 pl-4">
-                <li><strong>PLA (Polylactic Acid):</strong> The most common desktop polymer. Highly rigid, but relatively heavy, with a density baseline around **1.24 g/cm³**.</li>
-                <li><strong>PETG (Polyethylene Terephthalate Glycol):</strong> Offers strong chemical resilience. Slightly denser than PLA, averaging **1.27 g/cm³**.</li>
-                <li><strong>ABS (Acrylonitrile Butadiene Styrene):</strong> Known for impact resistance. Exceptionally lightweight with a density profile averaging **1.04 g/cm³**. An ABS spool will run significantly longer in total length than an identical weight PLA spool.</li>
-            </ul>
-
-            <h3 class="text-lg font-bold text-white mt-6">3. Calculating Your Real "Empty Spool" Tare Margin</h3>
-            <p>
-                One of the most common printing mistakes is neglecting to account for the heavy weight of the spool itself. If your scale reads 300g, you do not have 300g of printable plastic. 
-            </p>
-            <p>
-                You must subtract the empty reel weight (the "tare" weight). Cardboard reels usually weigh between 160g and 210g, while heavy injection-molded plastic spools (such as standard Bambu Lab or Hatchbox spools) can weigh between 220g and 290g. Keeping an inventory record of empty spools is highly recommended for professional printing operations to avoid underestimating material needs.
-            </p>
-
-            <h3 class="text-lg font-bold text-white mt-6">4. Material Density and Cost Quick Reference Index</h3>
-            <div class="overflow-x-auto bg-gray-950 p-2 rounded-xl border border-gray-800">
-                <table class="w-full text-left text-xs md:text-sm text-gray-400">
-                    <thead class="bg-gray-900 text-xs uppercase text-gray-200">
-                        <tr>
-                            <th class="p-3">Thermoplastic Formula</th>
-                            <th class="p-3">Standard Density Range</th>
-                            <th class="p-3">Standard 1.75mm Length (per 1kg)</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-800">
-                        <tr>
-                            <td class="p-3 font-semibold text-white">PLA (Polylactic Acid)</td>
-                            <td class="p-3">1.24 g/cm³</td>
-                            <td class="p-3">~335 meters</td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 font-semibold text-white">PETG (Glycol-Modified)</td>
-                            <td class="p-3">1.27 g/cm³</td>
-                            <td class="p-3">~327 meters</td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 font-semibold text-white">ABS (High Impact Profile)</td>
-                            <td class="p-3">1.04 g/cm³</td>
-                            <td class="p-3">~400 meters</td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 font-semibold text-white">Nylon (Polyamide)</td>
-                            <td class="p-3">1.14 g/cm³</td>
-                            <td class="p-3">~365 meters</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- Footer Bottom Ad Bracket -->
-        <div class="ad-slot-wrapper"><!-- [Insert Google AdSense Anchor Banner Unit Here] --></div>
-
-    </main>
-
-    <!-- Footer Copyright Block -->
-    <footer class="border-t border-gray-800 bg-gray-950 mt-12 py-6 text-center text-xs text-gray-500">
-        <p>&copy; 2026 MakerSpool Pro Network. Optimized for ultra-fast, offline calculations.</p>
-    </footer>
-
-    <!-- ============================================================== -->
-    <!-- MATH ENGINE RUNTIME ENGINE (PURE CLIENT-SIDE CALCULATOR)       -->
-    <!-- ============================================================== -->
-    <script>
-        // DOM target element selection states
-        const materialSelect = document.getElementById('materialType');
-        const spoolWeightInput = document.getElementById('spoolWeight');
-        const emptySpoolInput = document.getElementById('emptySpoolWeight');
-        const spoolCostInput = document.getElementById('spoolCost');
-        const printLengthInput = document.getElementById('printLength');
-        const flowRateInput = document.getElementById('flowRate');
-
-        // Results displays selector state handles
-        const outNetWeight = document.getElementById('outNetWeight');
-        const outNetLength = document.getElementById('outNetLength');
-        const outPrintCost = document.getElementById('outPrintCost');
-        const outCostPerGram = document.getElementById('outCostPerGram');
-        const outTimeCapacity = document.getElementById('outTimeCapacity');
-        
-        const spoolPercentageText = document.getElementById('spoolPercentageText');
-        const spoolProgressBar = document.getElementById('spoolProgressBar');
-
-        const statusAlert = document.getElementById('statusAlert');
-        const statusIcon = document.getElementById('statusIcon');
-        const statusTitle = document.getElementById('statusTitle');
-        const statusDesc = document.getElementById('statusDesc');
-
-        function calculateFilamentState() {
-            // Get inputs
-            const density = parseFloat(materialSelect.value); // g/cm³
-            const totalWeight = parseFloat(spoolWeightInput.value) || 0;
-            const emptySpoolWeight = parseFloat(emptySpoolInput.value) || 0;
-            const spoolCost = parseFloat(spoolCostInput.value) || 0;
-            const printLength = parseFloat(printLengthInput.value) || 0; // meters
-            const flowRate = parseFloat(flowRateInput.value) || 1; // g/hour
-
-            // Resolve Diameter Radio buttons
-            const diameter = parseFloat(document.querySelector('input[name="diameter"]:checked').value);
-
-            // 1. Calculate Available Net Filament Weight
-            const netWeight = Math.max(0, totalWeight - emptySpoolWeight);
-            outNetWeight.innerText = `${netWeight.toFixed(0)} g`;
-
-            // Calculate exact cost metrics per gram
-            // Assuming standard spool packaging represents 1000g of pure physical material purchased
-            const costPerGram = spoolCost / 1000;
-            outCostPerGram.innerText = `Cost per gram: $${costPerGram.toFixed(3)}`;
-
-            // 2. Convert Available Net Weight to Equivalent Physical Length
-            // Volume in cm³ = mass / density
-            const netVolumeCm3 = netWeight / density;
-            const netVolumeMm3 = netVolumeCm3 * 1000; // 1 cm³ = 1000 mm³
-            
-            // Area = π * r²
-            const radius = diameter / 2;
-            const areaMm2 = Math.PI * Math.pow(radius, 2);
-            
-            // Length = Volume / Area
-            const lengthMm = netVolumeMm3 / areaMm2;
-            const lengthMeters = lengthMm / 1000;
-            outNetLength.innerText = `~${lengthMeters.toFixed(1)} meters left`;
-
-            // 3. Calculate Weight of Required Print
-            // Print Volume in mm³ = Area * Length in mm
-            const printLengthMm = printLength * 1000;
-            const printVolumeMm3 = areaMm2 * printLengthMm;
-            const printVolumeCm3 = printVolumeMm3 / 1000;
-            const requiredPrintWeight = printVolumeCm3 * density; // grams
-
-            // 4. Print Cost Calculation
-            const printCost = requiredPrintWeight * costPerGram;
-            outPrintCost.innerText = `$${Math.max(0, printCost).toFixed(2)}`;
-
-            // 5. Total Running Time Capacity
-            const hoursCapacity = netWeight / flowRate;
-            outTimeCapacity.innerText = `${hoursCapacity.toFixed(1)} hours`;
-
-            // 6. Spool % Level UI Bar Updates (assuming 1kg standard starting weight)
-            const percentage = Math.min(100, Math.max(0, (netWeight / 1000) * 100));
-            spoolPercentageText.innerText = `${percentage.toFixed(0)}%`;
-            spoolProgressBar.style.width = `${percentage}%`;
-
-            // 7. Dynamic Alert Framework Status Mapping
-            if (netWeight <= 0) {
-                statusAlert.className = "p-4 rounded-xl flex items-center gap-3 border transition-colors bg-red-950/40 border-red-500/30 text-red-200";
-                statusIcon.innerText = "🚨";
-                statusTitle.innerText = "Empty Spool Detected";
-                statusDesc.innerText = "Your calculated raw filament weight is zero or negative. Please verify your total and empty spool weights.";
-            } else if (netWeight < requiredPrintWeight) {
-                statusAlert.className = "p-4 rounded-xl flex items-center gap-3 border transition-colors bg-red-950/40 border-red-500/30 text-red-200";
-                statusIcon.innerText = "⚠️";
-                statusTitle.innerText = "Insufficient Filament For This Print";
-                statusDesc.innerText = `This print requires ~${requiredPrintWeight.toFixed(0)}g of plastic, but your spool only has ~${netWeight.toFixed(0)}g left. Spool will run out mid-print!`;
-            } else if (netWeight < (requiredPrintWeight + 50)) {
-                statusAlert.className = "p-4 rounded-xl flex items-center gap-3 border transition-colors bg-amber-950/40 border-amber-500/30 text-amber-200";
-                statusIcon.innerText = "⚠️";
-                statusTitle.innerText = "Warning: Margins Run Exceptionally Low";
-                statusDesc.innerText = `You have enough to print, but only by a buffer of less than 50 grams. Watch out for spool winding tension.`;
-            } else {
-                statusAlert.className = "p-4 rounded-xl flex items-center gap-3 border transition-colors bg-emerald-950/40 border-emerald-500/30 text-emerald-200";
-                statusIcon.innerText = "✅";
-                statusTitle.innerText = "Filament Supply Verified";
-                statusDesc.innerText = `Your spool has a safe overhead margin of ~${(netWeight - requiredPrintWeight).toFixed(0)}g. It is completely safe to start this print job!`;
-            }
-        }
-
-        // Add Change/Input Listeners to recalculate math live
-        materialSelect.addEventListener('change', calculateFilamentState);
-        spoolWeightInput.addEventListener('input', calculateFilamentState);
-        emptySpoolInput.addEventListener('input', calculateFilamentState);
-        spoolCostInput.addEventListener('input', calculateFilamentState);
-        printLengthInput.addEventListener('input', calculateFilamentState);
-        flowRateInput.addEventListener('input', calculateFilamentState);
-        
-        document.querySelectorAll('input[name="diameter"]').forEach(radio => {
-            radio.addEventListener('change', calculateFilamentState);
-        });
-
-        // Initialize state calculations on first boot
-        calculateFilamentState();
-    </script>
-    <a href="../" style="display:inline-block; margin-bottom:20px; color:#666; text-decoration:none;">← Back to Hub</a>
-
-</body>
-</html>
