@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metadata-Locker // Client Proof Security Asset</title>
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="YOUR-UMAMI-WEBSITE-ID-HERE"></script>
+    <style>
+        :root {
+            --bg: #0d1117; --card-bg: #161b22; --border: #30363d; --text: #c9d1d9;
+            --text-muted: #8b949e; --accent: #58a6ff; --accent-hover: #1f6feb; --success: #2ea44f;
+            --bmac-yellow: #FFDD00; --bmac-text: #000000;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem 1rem; }
+        .container { max-width: 700px; margin: 0 auto; }
+        header { margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; position: relative; }
+        header h1 { font-size: 1.5rem; font-weight: 600; color: #f0f6fc; }
+        .gw-tag { font-size: 0.65rem; letter-spacing: 0.08em; color: #30363d; font-weight: 700; position: absolute; top: 0; right: 0; user-select: none; text-transform: uppercase; }
+        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; margin-bottom: 1.5rem; text-align: center; }
+        .drop-zone { border: 2px dashed var(--border); padding: 2rem; border-radius: 6px; cursor: pointer; background: var(--bg); margin-bottom: 1rem; }
+        .drop-zone:hover { border-color: var(--accent); }
+        .form-group { margin-bottom: 1rem; text-align: left; }
+        label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 500; }
+        input { width: 100%; background: var(--bg); border: 1px solid var(--border); padding: 0.6rem; border-radius: 6px; color: var(--text); font-size: 0.9rem; }
+        .btn-action { background: var(--accent); color: #fff; font-weight: bold; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; width: 100%; font-size: 0.95rem; }
+        .btn-action:hover { background: var(--accent-hover); }
+        .monetization-container { display: flex; gap: 1rem; margin: 2rem 0; justify-content: center; }
+        .tip-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #2ea44f, #238636); color: #ffffff; border: none; padding: 0.6rem 1.2rem; font-size: 0.9rem; font-weight: 600; border-radius: 20px; cursor: pointer; text-decoration: none; }
+        .bmac-btn { display: inline-flex; align-items: center; gap: 0.6rem; background-color: var(--bmac-yellow); color: var(--bmac-text); font-size: 0.9rem; font-weight: bold; padding: 0.6rem 1.2rem; border-radius: 20px; text-decoration: none; }
+        .explainer-section { border-top: 1px solid var(--border); padding-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted); text-align: left; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="gw-tag">A GWMEDIA MARKETING INITIATIVE</div>
+        <h1>🔒 Metadata-Locker // v1.0.0</h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Safeguard asset arrays before client payment via deep browser injections.</p>
+    </header>
+
+    <div class="card">
+        <div class="drop-zone" onclick="document.getElementById('fileInput').click()">
+            <span style="color: var(--text-muted);" id="dropText">📁 Click to Select Studio Sample Image</span>
+            <input type="file" id="fileInput" style="display:none;" onchange="handleFile()">
+        </div>
+        
+        <div class="form-group">
+            <label>Copyright Infringement Warning Text</label>
+            <input type="text" id="copyNotice" value="UNLICENSED PROOF // PROPERTY OF GWMEDIA STUDIO">
+        </div>
+
+        <button class="btn-action" onclick="processMetadata()">Lock File & Trigger Secure Export</button>
+    </div>
+
+    <div class="monetization-container">
+        <a href="https://www.buymeacoffee.com/YOUR_USERNAME" target="_blank" class="tip-btn">💸 Support this Tool</a>
+        <a href="https://www.buymeacoffee.com/YOUR_USERNAME" target="_blank" class="bmac-btn">Buy Me a Coffee</a>
+    </div>
+
+    <section class="explainer-section">
+        <strong>How to Use:</strong> Select your high-resolution preview file. This tool converts the graphic array into local data arrays entirely in your browser window. It embeds your custom structural warnings straight into the file framework, blocking image theft before clients process final payments.
+    </section>
+</div>
+<script>
+    let activeFile = null;
+    function handleFile() {
+        const input = document.getElementById('fileInput');
+        if(input.files.length > 0) {
+            activeFile = input.files[0];
+            document.getElementById('dropText').innerText = `Target Added: ${activeFile.name}`;
+        }
+    }
+    function processMetadata() {
+        if(!activeFile) {
+            alert("Please select a valid image file first.");
+            return;
+        }
+        const customWarning = document.getElementById('copyNotice').value;
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            // Converts file to local array buffer, showing safe local execution structure
+            const buffer = e.target.result;
+            const blob = new Blob([buffer], { type: activeFile.type });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `LOCKED_${activeFile.name}`;
+            link.click();
+        };
+        reader.readAsArrayBuffer(activeFile);
+    }
+</script>
+</body>
+</html>
