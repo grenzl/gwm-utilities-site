@@ -367,19 +367,22 @@
         // Initialize math calculations instantly on first window loading cycle
         calculateBarMetrics();
     </script>
-       <!-- Conspicuous Stacked Notice & Support Links Container -->
-    <div class="flex flex-col items-center justify-center gap-5 my-12 w-full">
-        <!-- Enlarged Ko-Fi Button (Increased height from 36px to 52px) -->
-        <a href='https://ko-fi.com' target='_blank' class="transform hover:scale-105 transition-transform duration-200">
-            <img height='52' style='border:0px;height:52px;' src='https://ko-fi.com' border='0' alt='Buy Me a Coffee at ko-fi.com' />
+          <!-- Conspicuous Stacked Notice & Support Links Container -->
+    <div class="flex flex-col items-center justify-center gap-4 my-12 w-full">
+        
+        <!-- Box 1: Ko-Fi Button (Enlarged inside a defined box container) -->
+        <a href='https://ko-fi.com' target='_blank' class="inline-block bg-slate-900 border border-slate-800 rounded-xl px-6 py-3.5 shadow-xl hover:border-slate-700 transition-all duration-200">
+            <img height='44' style='border:0px;height:44px;' src='https://ko-fi.com' border='0' alt='Buy Me a Coffee at ko-fi.com' class="block mx-auto" />
         </a>
         
-        <!-- Enlarged and Brightened Back Link -->
-        <a href="../" style="text-decoration:none;" class="text-base md:text-lg font-medium text-slate-400 hover:text-white transition-colors tracking-wide flex items-center gap-1.5">
+        <!-- Box 2: Back to Hub Link (Styled to perfectly match the Ko-Fi box layout) -->
+        <a href="../" style="text-decoration:none;" class="inline-block bg-slate-900 border border-slate-800 rounded-xl px-8 py-3.5 shadow-xl text-base md:text-lg font-medium text-slate-400 hover:text-white hover:border-slate-700 transition-all duration-200 tracking-wide text-center min-w-[200px]">
             ← Back to Hub
         </a>
+
     </div>
 
 </body>
 </html>
+
 
