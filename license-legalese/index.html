@@ -3,110 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>License-Legalese // Photography Terms Generator</title>
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="YOUR-UMAMI-WEBSITE-ID-HERE"></script>
+    <title>ModuKit — The Modular Web Utility Hub</title>
     <style>
         :root {
-            --bg: #0d1117; --card-bg: #161b22; --border: #30363d; --text: #c9d1d9;
-            --text-muted: #8b949e; --accent: #58a6ff; --accent-hover: #1f6feb; --success: #2ea44f;
-            --bmac-yellow: #FFDD00; --bmac-text: #000000;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-glow: #38bdf8;
+            --accent-hover: #0ea5e9;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-        body { background-color: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem 1rem; }
-        .container { max-width: 700px; margin: 0 auto; }
-        header { margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; position: relative; }
-        header h1 { font-size: 1.5rem; font-weight: 600; color: #f0f6fc; }
-        .gw-tag { font-size: 0.65rem; letter-spacing: 0.08em; color: #30363d; font-weight: 700; position: absolute; top: 0; right: 0; user-select: none; text-transform: uppercase; }
-        .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; margin-bottom: 1.5rem; }
-        .form-group { margin-bottom: 1rem; }
-        label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 500; }
-        input, select { width: 100%; background: var(--bg); border: 1px solid var(--border); padding: 0.6rem; border-radius: 6px; color: var(--text); font-size: 0.9rem; }
-        .result-box { background: rgba(88, 166, 255, 0.05); border: 1px dashed rgba(88, 166, 255, 0.3); padding: 1.2rem; border-radius: 6px; margin-top: 1rem; }
-        textarea { width: 100%; height: 120px; background: var(--bg); border: 1px solid var(--border); color: var(--text); font-family: monospace; font-size: 0.85rem; padding: 0.5rem; border-radius: 4px; resize: none; margin-top: 0.5rem; }
-        .btn-copy { background: var(--success); color: white; border: none; padding: 0.5rem 1rem; font-size: 0.85rem; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 0.5rem; }
-        .monetization-container { display: flex; gap: 1rem; margin: 2rem 0; justify-content: center; }
-        .tip-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, #2ea44f, #238636); color: #ffffff; border: none; padding: 0.6rem 1.2rem; font-size: 0.9rem; font-weight: 600; border-radius: 20px; cursor: pointer; text-decoration: none; }
-        .bmac-btn { display: inline-flex; align-items: center; gap: 0.6rem; background-color: var(--bmac-yellow); color: var(--bmac-text); font-size: 0.9rem; font-weight: bold; padding: 0.6rem 1.2rem; border-radius: 20px; text-decoration: none; }
-        .explainer-section { border-top: 1px solid var(--border); padding-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted); }
-        .explainer-section strong { color: var(--text); }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .hub-section {
+            margin-bottom: 3rem;
+        }
+
+        .hub-title {
+            font-size: 1.25rem;
+            color: var(--accent-glow);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-glow);
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.1);
+        }
+
+        .card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .card-header h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .status-badge {
+            display: inline-block;
+            align-self: flex-start;
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .status-live {
+            background-color: rgba(34, 197, 94, 0.1);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .status-upcoming {
+            background-color: rgba(148, 163, 184, 0.1);
+            color: var(--text-muted);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <header>
-        <div class="gw-tag">A GWMEDIA MARKETING INITIATIVE</div>
-        <h1>⚖️ License-Legalese // v1.0.0</h1>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Instantly build bulletproof image rights frameworks for digital contracts.</p>
-    </header>
 
-    <div class="card">
-        <div class="form-group">
-            <label>Licensor Name / Studio</label>
-            <input type="text" id="licensor" value="GWMEDIA Studio" oninput="genLegalese()">
-        </div>
-        <div class="form-group">
-            <label>Media Distribution Scope</label>
-            <select id="scopeTier" onchange="genLegalese()">
-                <option value="Digital Web and Social Media channels only">Digital Web & Social Media</option>
-                <option value="Regional Print Campaigns alongside basic digital web placements">Regional Print + Digital</option>
-                <option value="National Out-of-Home (OOH) displays, physical billboards, and digital press runs">National Billboard & Press</option>
-                <option value="Worldwide Comprehensive Distribution across all active broadcast, digital, and print systems">Full Broadcast Worldwide</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Duration Parameters</label>
-            <select id="durationTier" onchange="genLegalese()">
-                <option value="a period of exactly one (1) calendar year from invoice completion date">1 Year Term</option>
-                <option value="a period of exactly three (3) calendar years from invoice completion date">3 Years Term</option>
-                <option value="a period of exactly five (5) calendar years from invoice completion date">5 Years Term</option>
-                <option value="perpetual usage timelines without operational expiration limits">Perpetuity / Buyout</option>
-            </select>
-        </div>
+    <div class="container">
+        <header>
+            <h1>ModuKit</h1>
+            <p>A centralized suite of lightweight, modular browser utilities.</p>
+        </header>
 
-        <div class="result-box">
-            <label>Generated Contract Language Block</label>
-            <textarea id="legalOutput" readonly></textarea>
-            <button class="btn-copy" onclick="copyText('legalOutput')">Copy Legalese Block</button>
-        </div>
-    </div>
+        <!-- HUB 1: 3D PRINTING & MAKER TOOLS -->
+        <section class="hub-section">
+            <h2 class="hub-title">🛠️ Maker & 3D Printing Hub</h2>
+            <div class="grid">
+                <!-- Live App Link Using Clean Relative Paths -->
+                <a href="./filament-estimator/" class="card">
+                    <div class="card-header">
+                        <h3>⚖️ Filament Estimator</h3>
+                        <p>Convert 3D printing filament weight to length, map usage parameters, and calculate precise production material costs.</p>
+                    </div>
+                    <span class="status-badge status-live">Live Tool</span>
+                </a>
 
-    <div class="monetization-container">
-       
-    </div>
+                <!-- Placeholder for future tool -->
+                <div class="card disabled">
+                    <div class="card-header">
+                        <h3>⏱️ Print Time Predictor</h3>
+                        <p>Analyze g-code variables, layer geometry settings, and volumetric speed limits to accurately predict physical print intervals.</p>
+                    </div>
+                    <span class="status-badge status-upcoming">Planned</span>
+                </div>
+            </div>
+        </section>
 
-    <section class="explainer-section">
-        <strong>How to Use:</strong> Select your negotiated delivery rules above. The tool handles syntax configuration instantly. Copy the resulting block straight into invoice descriptions, proposal terms, or standard image EXIF metadata tags to block copyright confusion before it begins.
-    </section>
-</div>
-<script>
-    function genLegalese() {
-        const licensor = document.getElementById('licensor').value || "The Licensor";
-        const scope = document.getElementById('scopeTier').value;
-        const duration = document.getElementById('durationTier').value;
-        
-        document.getElementById('legalOutput').value = `IMAGE LICENSING RIDER // GRANTED BY: ${licensor}\nSubject to final invoice balancing, the client is granted a non-exclusive, non-transferable right to use the generated imagery for ${scope}. This agreement remains valid for ${duration}. Copyright ownership remains exclusively with the original creator. Unauthorized usage beyond these parameters constitutes structural infringement.`;
-    }
-    function copyText(id) {
-        const txt = document.getElementById(id);
-        txt.select();
-        document.execCommand('copy');
-        alert('Copied to clipboard!');
-    }
-    genLegalese();
-</script>
-       <!-- Conspicuous Stacked Notice & Support Links Container -->
-    <div class="flex flex-col items-center justify-center gap-4 my-12 w-full">
-        
-        <!-- Box 1: Ko-Fi Button (Enlarged inside a defined box container) -->
-        <a href='https://ko-fi.com' target='_blank' class="inline-block bg-slate-900 border border-slate-800 rounded-xl px-6 py-3.5 shadow-xl hover:border-slate-700 transition-all duration-200">
-            <img height='44' style='border:0px;height:44px;' src='https://ko-fi.com' border='0' alt='Buy Me a Coffee at ko-fi.com' class="block mx-auto" />
-        </a>
-        
-        <!-- Box 2: Back to Hub Link (Styled to perfectly match the Ko-Fi box layout) -->
-        <a href="../" style="text-decoration:none;" class="inline-block bg-slate-900 border border-slate-800 rounded-xl px-8 py-3.5 shadow-xl text-base md:text-lg font-medium text-slate-400 hover:text-white hover:border-slate-700 transition-all duration-200 tracking-wide text-center min-w-[200px]">
-            ← Back to Hub
-        </a>
+        <!-- HUB 2: DEVELOPER UTILITIES -->
+        <section class="hub-section">
+            <h2 class="hub-title">💻 Developer Tools Hub</h2>
+            <div class="grid">
+                <!-- Placeholder for future tool -->
+                <div class="card disabled">
+                    <div class="card-header">
+                        <h3>📦 JSON Swiss Army Knife</h3>
+                        <p>Format, minify, validate, and convert nested raw JSON payloads instantly directly within your local browser runtime sandbox.</p>
+                    </div>
+                    <span class="status-badge status-upcoming">Planned</span>
+                </div>
 
+                <!-- Placeholder for future tool -->
+                <div class="card disabled">
+                    <div class="card-header">
+                        <h3>🔑 Base64 / String Encoder</h3>
+                        <p>Encode and decode media assets, plain text snippets, or cryptic hashing variables instantly without risking remote leakage data transfers.</p>
+                    </div>
+                    <span class="status-badge status-upcoming">Planned</span>
+                </div>
+            </div>
+        </section>
     </div>
 
 </body>
