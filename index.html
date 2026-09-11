@@ -159,28 +159,37 @@
 
 <!-- Office Hub Section Header -->
 <!-- FLAWLESS NEW SECTION: FORCED FULL-WIDTH ROW BREAK -->
-<div style="grid-column: 1 / -1; width: 100%; display: block; clear: both; margin-top: 2rem; margin-bottom: 1.5rem;">
+<!-- FLAWLESS NEW SECTION: MATCHES SITE GRID LAYOUT -->
+<div class="w-full xl:col-span-3 mt-8">
     
-    <!-- Section Heading (Sits cleanly on top) -->
-    <h2 class="hub-title" style="font-size: 1.5rem; font-weight: 700; color: #f8fafc; margin-bottom: 1rem; border-bottom: 1px solid #1e293b; padding-bottom: 0.5rem;">
-        📋 Office & Productivity Hub
-    </h2>
+    <!-- Section Heading (Inherits exact hub font sizing and spacing) -->
+    <h2 class="hub-title mb-6">📋 Office & Productivity Hub</h2>
 
-    <!-- Section Content Grid (Houses the cards neatly underneath) -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; width: 100%;">
+    <!-- Section Content Grid (Inherits exact layout logic from your other hubs) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
         <!-- Tool Card 1: PrintProof Engine -->
-        <div class="p-6 bg-slate-900 border border-slate-800 rounded-xl">
-            <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2">
-                <i data-lucide="printer" class="text-emerald-400"></i> PrintProof Engine
-            </h3>
-            <p class="text-slate-400 text-sm mt-2 mb-4">
-                Bypass office printer crashes. Instantly strip corrupt metadata and flatten structural layouts locally.
-            </p>
-            <a href="https://github.io" class="inline-block text-xs bg-emerald-500 text-slate-950 font-bold px-3 py-1.5 rounded hover:bg-emerald-600 transition-colors">
-                Live Tool
-            </a>
+        <div class="p-6 bg-slate-900 border border-slate-800 rounded-xl flex flex-col justify-between">
+            <div>
+                <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                    <i data-lucide="printer" class="text-emerald-400"></i> PrintProof Engine
+                </h3>
+                <p class="text-slate-400 text-sm mt-2 mb-4">
+                    Bypass office printer crashes. Instantly strip corrupt metadata and flatten structural layouts locally.
+                </p>
+            </div>
+            <div>
+                <a href="https://github.io" class="inline-block text-xs bg-emerald-500 text-slate-950 font-bold px-3 py-1.5 rounded hover:bg-emerald-600 transition-colors">
+                    Live Tool
+                </a>
+            </div>
         </div>
+
+        <!-- Future tools will follow here cleanly -->
+
+    </div>
+</div>
+
 
         <!-- Future Tool Card 2 Placeholder (Add more cards here later!) -->
 
