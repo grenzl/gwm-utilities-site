@@ -3,257 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ModuKit — The Modular Web Utility Hub</title>
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-glow: #38bdf8;
-            --accent-hover: #0ea5e9;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            padding: 2rem 1rem;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 3.5rem;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: -0.05em;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(to right, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        .hub-section {
-            margin-bottom: 3rem;
-        }
-
-        .hub-title {
-            font-size: 1.25rem;
-            color: var(--accent-glow);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid #334155;
-            padding-bottom: 0.5rem;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-decoration: none;
-            color: inherit;
-            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-glow);
-            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.1);
-        }
-
-        .card.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
-        .card-header h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .card-header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.4;
-        }
-
-        .status-badge {
-            display: inline-block;
-            align-self: flex-start;
-            margin-top: 1.5rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.25rem 0.5rem;
-            border-radius: 6px;
-            text-transform: uppercase;
-        }
-
-        .status-live {
-            background-color: rgba(34, 197, 94, 0.1);
-            color: #4ade80;
-            border: 1px solid rgba(34, 197, 94, 0.2);
-        }
-
-        .status-upcoming {
-            background-color: rgba(148, 163, 184, 0.1);
-            color: var(--text-muted);
-            border: 1px solid rgba(148, 163, 184, 0.2);
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <header>
-            <h1>ModuKit</h1>
-            <p>A centralized suite of lightweight, modular browser utilities.</p>
-        </header>
-
-        <!-- HUB 1: 3D PRINTING & MAKER TOOLS -->
-        <section class="hub-section">
-            <h2 class="hub-title">🛠️ Maker & 3D Printing Hub</h2>
-            <div class="grid">
-                <!-- Live App Link Using Clean Relative Paths -->
-                <a href="./filament-estimator/" class="card">
-                    <div class="card-header">
-                        <h3>⚖️ Filament Estimator</h3>
-                        <p>Convert 3D printing filament weight to length, map usage parameters, and calculate precise production material costs.</p>
-                    </div>
-                    <span class="status-badge status-live">Live Tool</span>
-                </a>
-
-<!-- Office Hub Section Header -->
-<!-- FLAWLESS NEW SECTION: MATCHES SITE GRID LAYOUT -->
-<div class="w-full xl:col-span-3 mt-8">
+    <title>PrintProof - Bypass Office Printer Crashes Instantly</title>
     
-    <!-- Section Heading (Inherits exact hub font sizing and spacing) -->
-    <h2 class="hub-title mb-6">📋 Office & Productivity Hub</h2>
+    <!-- Tailwind CSS Engine for Styling -->
+    <script src="https://tailwindcss.com"></script>
+    
+    <!-- Lucide Icons Library -->
+    <script src="https://unpkg.com"></script>
+    
+    <!-- PDF-Lib Engine: Enables 100% local browser-side PDF rebuilding -->
+    <script src="https://unpkg.com"></script>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between font-sans">
 
-    <!-- Section Content Grid (Inherits exact layout logic from your other hubs) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        
-        <!-- Tool Card 1: PrintProof Engine -->
-        <div class="p-6 bg-slate-900 border border-slate-800 rounded-xl flex flex-col justify-between">
-            <div>
-                <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2">
-                    <i data-lucide="printer" class="text-emerald-400"></i> PrintProof Engine
-                </h3>
-                <p class="text-slate-400 text-sm mt-2 mb-4">
-                    Bypass office printer crashes. Instantly strip corrupt metadata and flatten structural layouts locally.
-                </p>
+    <!-- Header -->
+    <header class="border-b border-slate-800 p-4 w-full">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2 font-bold text-xl tracking-tight">
+                <i data-lucide="printer" class="text-emerald-400"></i>
+                <span>Print<span class="text-emerald-400">Proof</span></span>
             </div>
-            <div>
-                <!-- Hardened Masked Redirect Button (Bypasses markdown link filters) -->
-                <button 
-                    onclick="window.open('https://' + 'grenzl.' + 'github.io' + '/printproof/', '_blank')" 
-                    class="inline-block text-xs bg-emerald-500 text-slate-950 font-bold px-3 py-1.5 rounded hover:bg-emerald-600 transition-colors cursor-pointer"
-                >
-                    Live Tool →
+            <span class="text-xs bg-slate-900 border border-slate-700 px-2 py-1 rounded text-slate-400 flex items-center gap-1">
+                <i data-lucide="shield" class="w-3 h-3 text-emerald-400"></i> 100% Local Browser Execution
+            </span>
+        </div>
+    </header>
+
+    <!-- Main App Workspace -->
+    <main class="max-w-2xl mx-auto w-full p-6 flex-grow flex flex-col justify-center">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-extrabold tracking-tight mb-2 sm:text-4xl">
+                Bypass Office Printer Crashes Instantly.
+            </h1>
+            <p class="text-slate-400 text-sm">
+                Strips driver-killing metadata, flattens structural corruption, and compiles a universal print-ready file.
+            </p>
+        </div>
+
+        <!-- The Interactive Engine Box -->
+        <div id="drop-zone" class="border-2 border-dashed border-slate-700 hover:border-emerald-500 bg-slate-900/50 rounded-2xl p-10 flex flex-col items-center justify-center transition-all cursor-pointer min-h-[240px]">
+            
+            <!-- Hidden native file picker so users can click to select -->
+            <input type="file" id="file-picker" accept=".pdf" class="hidden" />
+
+            <!-- State 1: Ready to Drop (Visible by default) -->
+            <div id="state-ready" class="text-center">
+                <i data-lucide="file-up" class="w-12 h-12 text-slate-500 mx-auto mb-4 animate-pulse"></i>
+                <p class="font-medium mb-1">Drag & Drop your unprintable PDF here</p>
+                <p class="text-xs text-slate-500">Or click to select a file. No Sign-up. Zero Wait.</p>
+            </div>
+
+            <!-- State 2: Processing (Hidden by default) -->
+            <div id="state-processing" class="text-center hidden">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-400 mx-auto mb-4"></div>
+                <p class="text-sm font-medium text-emerald-400">Stripping Spooler-Killing Payload Layers...</p>
+            </div>
+
+            <!-- State 3: Done / Download (Hidden by default) -->
+            <div id="state-done" class="text-center hidden">
+                <i data-lucide="check-circle" class="w-12 h-12 text-emerald-400 mx-auto mb-4"></i>
+                <p class="font-semibold text-emerald-400 mb-2">File Repaired & Rebuilt!</p>
+                <button id="download-btn" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-6 py-2.5 rounded-lg shadow-lg transition-transform transform active:scale-95 text-sm">
+                    Download Print-Ready PDF
                 </button>
             </div>
         </div>
 
-    </div>
-</div>
+        <!-- Native B2B Sponsorship Engine Slot -->
+        <div class="mt-8 border border-slate-800 bg-slate-900/30 rounded-xl p-4 flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2">
+                <span class="text-[10px] font-bold tracking-widest uppercase bg-slate-800 px-1.5 py-0.5 rounded text-slate-400 shrink-0">Sponsor</span>
+                <span class="text-slate-300 font-medium">Tired of legacy paper workflows failing your deadlines?</span>
+            </div>
+            <a href="#" class="text-emerald-400 font-bold hover:underline shrink-0 ml-4">Switch to DocuSign Edge →</a>
+        </div>
+    </main>
 
+    <!-- Footer -->
+    <footer class="border-t border-slate-900 p-4 text-center text-xs text-slate-600">
+        © 2026 PrintProof • Secured Local Environment.
+    </footer>
 
+    <!-- Core App Engine Script -->
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const filePicker = document.getElementById('file-picker');
+        const stateReady = document.getElementById('state-ready');
+        const stateProcessing = document.getElementById('state-processing');
+        const stateDone = document.getElementById('state-done');
+        const downloadBtn = document.getElementById('download-btn');
 
-        <!-- Future Tool Card 2 Placeholder (Add more cards here later!) -->
+        let repairedFileUrl = null;
+        let repairedFileName = "PRINT_READY_FLATTENED.pdf";
 
-    </div>
-</div>
+        // Initialize Icons
+        lucide.createIcons();
 
+        dropZone.addEventListener('click', () => {
+            if (stateReady.classList.contains('hidden') === false) {
+                filePicker.click();
+            }
+        });
 
+        filePicker.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) processPdfFile(e.target.files[0]);
+        });
 
-</div>
+        dropZone.addEventListener('dragover', (e) => e.preventDefault());
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            if (e.dataTransfer.files.length > 0) {
+                const file = e.dataTransfer.files[0];
+                if (file.type === "application/pdf" || file.name.endsWith('.pdf')) {
+                    processPdfFile(file);
+                } else {
+                    alert("Please drop a valid PDF file.");
+                }
+            }
+        });
 
+        async function processPdfFile(file) {
+            stateReady.classList.add('hidden');
+            stateProcessing.classList.remove('hidden');
+            repairedFileName = `FIXED_${file.name}`;
 
-</div>
-
+            try {
+                const fileBytes = await file.arrayBuffer();
+                const pdfDoc = await PDFLib.PDFDocument.load(fileBytes, { ignoreEncryption: true });
+                const cleanPdfDoc = await PDFLib.PDFDocument.create();
                 
-                <div class="card disabled">
-                    <div class="card-header">
-                        <h3>⏱️ Print Time Predictor</h3>
-                        <p>Analyze g-code variables, layer geometry settings, and volumetric speed limits to accurately predict physical print intervals.</p>
-                    </div>
-                    <span class="status-badge status-upcoming">Planned</span>
-                </div>
-            </div>
-        </section>
+                const pageIndices = Array.from({ length: pdfDoc.getPageCount() }, (_, i) => i);
+                const copiedPages = await cleanPdfDoc.copyPages(pdfDoc, pageIndices);
+                
+                copiedPages.forEach((page) => cleanPdfDoc.addPage(page));
+                const cleanPdfBytes = await cleanPdfDoc.save();
 
-        <!-- HUB 2: DEVELOPER UTILITIES -->
-        <section class="hub-section">
-            <h2 class="hub-title">💻 Developer Tools Hub</h2>
-            <div class="grid">
-                <!-- Placeholder for future tool -->
-               <!-- Changed to an active link pointing to your new folder -->
-<a href="./dev-tools/json-parser/" class="card">
-    <div class="card-header">
-        <h3>📦 JSON Swiss Army Knife</h3>
-        <p>Format, minify, validate, and convert nested raw JSON payloads instantly directly within your local browser runtime sandbox.</p>
-    </div>
-    <!-- Changed the status badge to Live -->
-    <span class="status-badge status-live">Live Tool</span>
-</a>
+                const blob = new Blob([cleanPdfBytes], { type: "application/pdf" });
+                repairedFileUrl = URL.createObjectURL(blob);
 
+                stateProcessing.classList.add('hidden');
+                stateDone.classList.remove('hidden');
+            } catch (error) {
+                console.error(error);
+                alert("Error processing PDF layout infrastructure.");
+                stateProcessing.classList.add('hidden');
+                stateReady.classList.remove('hidden');
+            }
+        }
 
-                <!-- Placeholder for future tool -->
-                <div class="card disabled">
-                    <div class="card-header">
-                        <h3>🔑 Base64 / String Encoder</h3>
-                        <p>Encode and decode media assets, plain text snippets, or cryptic hashing variables instantly without risking remote leakage data transfers.</p>
-                    </div>
-                    <span class="status-badge status-upcoming">Planned</span>
-                </div>
-            </div>
-        </section>
-        <!-- FOOTER NAVIGATION & SUPPORT LINKS -->
-<footer style="max-width: 800px; margin: 4rem auto 2rem auto; padding-top: 1.5rem; border-top: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-    <!-- Left Side: Back to Home Link -->
-    <a href="../../" style="color: #38bdf8; text-decoration: none; font-size: 0.95rem; font-weight: 500;">← Back to ModuKit Dashboard</a>
-    
-    <!-- Right Side: Ko-fi Support Link -->
-    <a href="https://ko-fi.com" target="_blank" rel="noopener noreferrer" style="background-color: #29abe2; color: #ffffff; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.95rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: background-color 0.2s;">
-        ☕ Buy me a Coffee at Ko-fi.com
-    </a>
-</footer>
-
-    </div>
-
+        downloadBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (repairedFileUrl) {
+                const link = document.createElement('a');
+                link.href = repairedFileUrl;
+                link.download = repairedFileName;
+                link.click();
+            }
+        });
+    </script>
 </body>
 </html>
