@@ -5,24 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ModuKit.dev | Utility Hub</title>
     
-    <!-- Ultra-Stable Tailwind CSS v3 Engine (Guarantees formatting works instantly) -->
-    <script src="https://tailwindcss.com"></script>
+    <!-- Direct Static CSS Layer (Bypasses all JavaScript block errors entirely) -->
+    <link rel="stylesheet" href="https://cloudflare.com">
     
     <!-- Fixed Lucide Icons Library Bundle -->
     <script src="https://unpkg.com"></script>
+    
+    <style>
+        /* Fallback safety rules to guarantee deep slate theme colors apply */
+        body { background-color: #020617 !important; color: #f1f5f9 !important; }
+        .bg-custom-card { background-color: rgba(30, 41, 59, 0.4) !important; }
+        .border-custom { border-color: rgba(51, 65, 85, 0.5) !important; }
+    </style>
 </head>
-<body class="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between font-sans selection:bg-emerald-500/30">
+<body class="min-h-screen bg-gray-950 text-gray-100 flex flex-col justify-between font-sans">
 
     <!-- Header Navigation -->
-    <header class="border-b border-slate-900 bg-slate-900/20 backdrop-blur-md sticky top-0 z-50 p-4 w-full">
+    <header class="border-b border-gray-800 bg-gray-900 bg-opacity-20 p-4 w-full">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2 font-bold text-xl tracking-tight">
-                <i data-lucide="cpu" class="text-emerald-400 w-6 h-6"></i>
-                <span>Modu<span class="text-emerald-400">Kit</span><span class="text-xs text-slate-500 font-normal ml-1">.dev</span></span>
+                <span class="text-white">Modu<span class="text-green-400">Kit</span><span class="text-xs text-gray-500 font-normal ml-1">.dev</span></span>
             </div>
-            <div class="flex items-center gap-4 text-xs">
-                <a href="https://github.com" target="_blank" class="text-slate-400 hover:text-white transition-colors flex items-center gap-1">
-                    <i data-lucide="github" class="w-4 h-4"></i> GitHub Repo
+            <div class="text-xs">
+                <a href="https://github.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                    GitHub Repo
                 </a>
             </div>
         </div>
@@ -33,49 +39,45 @@
         
         <!-- Welcome Message -->
         <div class="mb-12 text-left">
-            <h1 class="text-4xl font-extrabold tracking-tight mb-3 bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent">
+            <h1 class="text-4xl font-extrabold tracking-tight mb-3 text-white">
                 Workspace Utility Hub
             </h1>
-            <p class="text-slate-400 text-base max-w-2xl">
+            <p class="text-gray-400 text-base max-w-2xl">
                 A personal launcher library of production tools, automated estimators, and local optimization modules.
             </p>
         </div>
 
         <!-- FEATURED APP ONE: PrintProof Native Box -->
-        <div class="mb-10 border border-emerald-500/30 bg-slate-900/40 rounded-2xl p-6 md:p-8 shadow-xl">
+        <div class="mb-10 border border-green-500 border-opacity-30 bg-gray-900 bg-opacity-40 bg-custom-card rounded-2xl p-6 md:p-8 shadow-xl">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div>
-                    <div class="flex items-center gap-2 text-emerald-400 font-bold text-xl mb-1">
-                        <i data-lucide="printer" class="w-6 h-6"></i>
+                    <div class="flex items-center gap-2 text-green-400 font-bold text-xl mb-1">
                         <h2>PrintProof Engine</h2>
-                        <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full font-medium ml-2">Active</span>
+                        <span class="text-xs bg-green-500 bg-opacity-10 text-green-400 border border-green-500 border-opacity-20 px-2 py-0.5 rounded-full font-medium ml-2">Active</span>
                     </div>
-                    <p class="text-slate-400 text-sm max-w-xl">Bypass office printer crashes by flattening PDF structures and stripping spooler-killing metadata elements locally in your browser workspace.</p>
+                    <p class="text-gray-400 text-sm max-w-xl">Bypass office printer crashes by flattening PDF structures and stripping spooler-killing metadata elements locally in your browser workspace.</p>
                 </div>
-                <div class="text-xs text-slate-500 border border-slate-800 bg-slate-950 px-3 py-1.5 rounded-lg h-fit w-fit flex items-center gap-1.5">
-                    <i data-lucide="shield" class="w-3.5 h-3.5 text-emerald-400"></i> 100% Local Sandboxed Execution
+                <div class="text-xs text-gray-500 border border-gray-800 bg-gray-950 px-3 py-1.5 rounded-lg h-fit w-fit">
+                    100% Local Sandboxed Execution
                 </div>
             </div>
 
             <!-- Drag & Drop Area -->
-            <div id="drop-zone" class="border-2 border-dashed border-slate-700 hover:border-emerald-500 bg-slate-950/50 rounded-xl p-8 flex flex-col items-center justify-center transition-all cursor-pointer min-h-[160px] text-center">
+            <div id="drop-zone" class="border-2 border-dashed border-gray-700 hover:border-green-500 bg-gray-950 bg-opacity-50 rounded-xl p-8 flex flex-col items-center justify-center transition-all cursor-pointer min-h-[160px] text-center">
                 <input type="file" id="file-picker" accept=".pdf" class="hidden" />
                 
                 <div id="state-ready">
-                    <i data-lucide="file-up" class="w-10 h-10 text-slate-500 mx-auto mb-2 animate-pulse"></i>
-                    <p class="text-sm font-medium text-slate-200">Drag & Drop your corrupt PDF file here</p>
-                    <p class="text-xs text-slate-500 mt-1">Or click to search your computer files</p>
+                    <p class="text-sm font-medium text-gray-200">Drag & Drop your corrupt PDF file here</p>
+                    <p class="text-xs text-gray-500 mt-1">Or click to search your computer files</p>
                 </div>
 
                 <div id="state-processing" class="hidden">
-                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-400 mx-auto mb-3"></div>
-                    <p class="text-xs text-emerald-400 font-medium">Rebuilding structural binary layout layers...</p>
+                    <p class="text-xs text-green-400 font-medium">Rebuilding structural binary layout layers...</p>
                 </div>
 
                 <div id="state-done" class="hidden">
-                    <i data-lucide="check-circle" class="w-10 h-10 text-emerald-400 mx-auto mb-3"></i>
-                    <p class="text-xs text-emerald-400 font-semibold mb-2">Structure Flattened Successfully!</p>
-                    <button id="download-btn" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-5 py-2 rounded-lg text-xs shadow transition-transform active:scale-95">
+                    <p class="text-xs text-green-400 font-semibold mb-2">Structure Flattened Successfully!</p>
+                    <button id="download-btn" class="bg-green-500 hover:bg-green-600 text-gray-950 font-bold px-5 py-2 rounded-lg text-xs shadow">
                         Download Print-Ready PDF
                     </button>
                 </div>
@@ -83,69 +85,101 @@
         </div>
 
         <!-- Divider label for remaining apps -->
-        <div class="border-t border-slate-900 pt-8 mb-6">
-            <h3 class="text-sm font-semibold tracking-wider text-slate-500 uppercase">Your Core Application Dashboard (8 Tools)</h3>
+        <div class="border-t border-gray-900 pt-8 mb-6">
+            <h3 class="text-sm font-semibold tracking-wider text-gray-500 uppercase">Your Core Application Dashboard (8 Tools)</h3>
         </div>
 
         <!-- The 8 Core Sub-Folders Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
             <!-- App 2: Bar Estimator -->
-            <a href="bar-estimator" class="group border border-slate-800/80 hover:border-slate-700 bg-slate-900/30 hover:bg-slate-900/60 rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between min-h-[150px]">
+            <a href="bar-estimator" class="group border border-custom bg-custom-card rounded-2xl p-6 transition-all block min-h-[150px]">
                 <div>
-                    <div class="p-2.5 bg-slate-800 rounded-xl text-slate-300 mb-3 w-fit group-hover:text-emerald-400 transition-colors">
-                        <i data-lucide="binary" class="w-5 h-5"></i>
-                    </div>
-                    <h3 class="font-bold text-base text-white">Bar Estimator</h3>
-                    <p class="text-slate-400 text-xs mt-1 line-clamp-2">Material estimation engine tailored for structural reinforcing layouts.</p>
+                    <h3 class="font-bold text-lg text-white mb-1">Bar Estimator</h3>
+                    <p class="text-gray-400 text-xs line-clamp-2">Material estimation engine tailored for structural reinforcing layouts.</p>
                 </div>
-                <div class="text-slate-500 group-hover:text-white text-xs font-semibold flex items-center gap-1 mt-4 transition-colors">
-                    Launch Tool <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                <div class="text-green-400 text-xs font-semibold mt-4">
+                    Launch Tool →
                 </div>
             </a>
 
             <!-- App 3: Camera Visualizer -->
-            <a href="camera-visualizer" class="group border border-slate-800/80 hover:border-slate-700 bg-slate-900/30 hover:bg-slate-900/60 rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between min-h-[150px]">
+            <a href="camera-visualizer" class="group border border-custom bg-custom-card rounded-2xl p-6 transition-all block min-h-[150px]">
                 <div>
-                    <div class="p-2.5 bg-slate-800 rounded-xl text-slate-300 mb-3 w-fit group-hover:text-emerald-400 transition-colors">
-                        <i data-lucide="video" class="w-5 h-5"></i>
-                    </div>
-                    <h3 class="font-bold text-base text-white">Camera Visualizer</h3>
-                    <p class="text-slate-400 text-xs mt-1 line-clamp-2">Real-time perspective grid maps and diagnostic optics render setup tools.</p>
+                    <h3 class="font-bold text-lg text-white mb-1">Camera Visualizer</h3>
+                    <p class="text-gray-400 text-xs line-clamp-2">Real-time perspective grid maps and diagnostic optics render setup tools.</p>
                 </div>
-                <div class="text-slate-500 group-hover:text-white text-xs font-semibold flex items-center gap-1 mt-4 transition-colors">
-                    Launch Tool <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                <div class="text-green-400 text-xs font-semibold mt-4">
+                    Launch Tool →
                 </div>
             </a>
 
             <!-- App 4: Dev Tools (FIXED 404 LINK) -->
-            <a href="dev-tools" class="group border border-slate-800/80 hover:border-slate-700 bg-slate-900/30 hover:bg-slate-900/60 rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between min-h-[150px]">
+            <a href="dev-tools" class="group border border-custom bg-custom-card rounded-2xl p-6 transition-all block min-h-[150px]">
                 <div>
-                    <div class="p-2.5 bg-slate-800 rounded-xl text-slate-300 mb-3 w-fit group-hover:text-emerald-400 transition-colors">
-                        <i data-lucide="terminal" class="w-5 h-5"></i>
-                    </div>
-                    <h3 class="font-bold text-base text-white">Developer Utilities</h3>
-                    <p class="text-slate-400 text-xs mt-1 line-clamp-2">Quick snippet code generators, text formatting modules, and format validators.</p>
+                    <h3 class="font-bold text-lg text-white mb-1">Developer Utilities</h3>
+                    <p class="text-gray-400 text-xs line-clamp-2">Quick snippet code generators, text formatting modules, and format validators.</p>
                 </div>
-                <div class="text-slate-500 group-hover:text-white text-xs font-semibold flex items-center gap-1 mt-4 transition-colors">
-                    Launch Tool <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                <div class="text-green-400 text-xs font-semibold mt-4">
+                    Launch Tool →
                 </div>
             </a>
 
             <!-- App 5: Filament Estimator -->
-            <a href="filament-estimator" class="group border border-slate-800/80 hover:border-slate-700 bg-slate-900/30 hover:bg-slate-900/60 rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between min-h-[150px]">
+            <a href="filament-estimator" class="group border border-custom bg-custom-card rounded-2xl p-6 transition-all block min-h-[150px]">
                 <div>
-                    <div class="p-2.5 bg-slate-800 rounded-xl text-slate-300 mb-3 w-fit group-hover:text-emerald-400 transition-colors">
-                        <i data-lucide="layers" class="w-5 h-5"></i>
-                    </div>
-                    <h3 class="font-bold text-base text-white">Filament Estimator</h3>
-                    <p class="text-slate-400 text-xs mt-1 line-clamp-2">Calculate volume consumption metrics and pricing matrices for additive 3D prints.</p>
+                    <h3 class="font-bold text-lg text-white mb-1">Filament Estimator</h3>
+                    <p class="text-gray-400 text-xs line-clamp-2">Calculate volume consumption metrics and pricing matrices for additive 3D prints.</p>
                 </div>
-                <div class="text-slate-500 group-hover:text-white text-xs font-semibold flex items-center gap-1 mt-4 transition-colors">
-                    Launch Tool <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                <div class="text-green-400 text-xs font-semibold mt-4">
+                    Launch Tool →
                 </div>
             </a>
 
             <!-- App 6: Metadata Locker -->
-            <a href="metadata-locker" class="group border border-slate-800/80 hover:border-slate-700 bg-slate-900/30 hover:bg-slate-900/60 rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between min-h-[150px]">
+            <a href="metadata-locker" class="group border border-custom bg-custom-card rounded-2xl p-6 transition-all block min-h-[150px]">
                 <div>
+                    <h3 class="font-bold text-lg text-white mb-1">Metadata Locker</h3>
+                    <p class="text-gray-400 text-xs line-clamp-2">Local file security parsing toolkit to audit file parameters securely.</p>
+                </div>
+                <div class="text-green-400 text-xs font-semibold mt-4">
+                    Launch Tool →
+                </div>
+            </a>
+
+            <!-- App 7: Scope Guard -->
+            <a href="scope-guard" class="group border border-custom bg-custom-card rounded-2xl p-6 transition-all block min-h-[150px]">
+                <div>
+                    <h3 class="font-bold text-lg text-white mb-1">Scope Guard</h3>
+                    <p class="text-gray-400 text-xs line-clamp-2">Operational pipeline safety logic maps and task deadline boundary models.</p>
+                </div>
+                <div class="text-green-400 text-xs font-semibold mt-4">
+                    Launch Tool →
+                </div>
+            </a>
+
+            <!-- App 8: Social Media Safezone -->
+            <a href="social-media-safezone" class="group border border-custom bg-custom-card rounded-2xl p-6 transition-all block min-h-[150px]">
+                <div>
+                    <h3 class="font-bold text-lg text-white mb-1">Social Media Safezone</h3>
+                    <p class="text-gray-400 text-xs line-clamp-2">Visual frame overlays and clipping safe zone dimensions template rules.</p>
+                </div>
+                <div class="text-green-400 text-xs font-semibold mt-4">
+                    Launch Tool →
+                </div>
+            </a>
+
+            <!-- App 9: Trench Calculator -->
+            <a href="trench-calculator" class="group border border-custom bg-custom-card rounded-2xl p-6 transition-all block min-h-[150px]">
+                <div>
+                    <h3 class="font-bold text-lg text-white mb-1">Trench Calculator</h3>
+                    <p class="text-gray-400 text-xs line-clamp-2">Excavation volume equations and grade structural slope backfill estimators.</p>
+                </div>
+                <div class="text-green-400 text-xs font-semibold mt-4">
+                    Launch Tool →
+                </div>
+            </a>
+
+        </div>
+    </main>
+
