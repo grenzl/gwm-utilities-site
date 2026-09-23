@@ -155,35 +155,36 @@
         <!-- The 9 App Grid Layout Container -->
         <div class="grid-container">
             
-            <!-- APP 1: PrintProof Engine Box (Fixed Interactive Local Interface) -->
-            <div class="printproof-card">
+                        <!-- APP 1: PrintProof Engine Box (Interactive Client-Side Dropzone) -->
+            <div class="printproof-card" style="border: 2px solid rgba(52, 211, 153, 0.4); background-color: rgba(15, 23, 42, 0.7); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 240px; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);">
                 <div>
-                    <div class="printproof-meta">
-                        <h3 class="printproof-title">PrintProof</h3>
-                        <span class="badge">Local Engine</span>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <h3 style="color: #34d399; font-weight: 700; font-size: 18px;">PrintProof</h3>
+                        <span style="font-size: 10px; background-color: rgba(52, 211, 153, 0.1); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.2); padding: 2px 8px; font-weight: 600; border-radius: 12px; text-transform: uppercase;">Local Engine</span>
                     </div>
-                    <p class="printproof-desc">Bypass office printer crashes by flattening PDF structures and stripping spooler metadata completely locally.</p>
+                    <p style="color: #94a3b8; font-size: 12px; line-height: 1.5; margin-bottom: 12px;">Bypass office printer crashes by flattening PDF structures and stripping spooler metadata completely locally.</p>
                 </div>
                 
-                <!-- File Processing Interface Element Area -->
-                <div id="drop-zone" class="drop-zone">
-                    <input type="file" id="file-picker" accept=".pdf" class="hidden-input" />
+                <!-- File Processing Interface Trigger -->
+                <div id="drop-zone" class="drop-zone" style="border: 1px dashed #334155; background-color: rgba(2, 6, 23, 0.4); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; flex-grow: 1;">
+                    <input type="file" id="file-picker" class="hidden-input" accept=".pdf" style="display: none;" />
                     
                     <div id="state-ready">
-                        <p class="drop-text-main">Drag & Drop PDF or Click here</p>
-                        <p class="drop-text-sub">100% Client-Side Rebuild</p>
+                        <p style="font-size: 13px; font-weight: 600; color: #e2e8f0;">Drag & Drop PDF or Click here</p>
+                        <p style="font-size: 11px; color: #64748b; margin-top: 2px;">100% Client-Side Rebuild</p>
                     </div>
                     
-                    <div id="state-processing" class="hidden-block">
-                        <p class="state-text state-processing">Stripping metadata layer parameters...</p>
+                    <div id="state-processing" class="hidden-block" style="display: none;">
+                        <p style="font-size: 12px; font-weight: 500; color: #34d399;">Stripping metadata layer parameters...</p>
                     </div>
                     
-                    <div id="state-done" class="hidden-block">
-                        <p class="state-text state-success">Structure Flattened!</p>
-                        <button id="download-btn" class="download-btn">Download PDF</button>
+                    <div id="state-done" class="hidden-block" style="display: none;">
+                        <p style="font-size: 12px; font-weight: 600; color: #34d399; margin-bottom: 6px;">Structure Flattened!</p>
+                        <button id="download-btn" class="download-btn" style="background-color: #34d399; color: #020617; font-weight: 700; padding: 6px 16px; border: none; border-radius: 6px; font-size: 11px; cursor: pointer;">Download PDF</button>
                     </div>
                 </div>
             </div>
+
 
             <!-- APP 2: Bar Estimator -->
             <a href="bar-estimator/" class="card">
