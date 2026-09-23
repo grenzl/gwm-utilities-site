@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ModuKit.dev | Utility Hub</title>
-    
     <style>
-        /* NATIVE CSS ENGINE - BROWSERS CANNOT BLOCK OR BYPASS THIS EMBEDDED LAYOUT */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
             background-color: #020617; 
             color: #f1f5f9; 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -19,7 +17,7 @@
         }
         header {
             border-bottom: 1px solid #1e293b;
-            background-color: rgba(15, 23, 42, 0.6);
+            background-color: rgba(15, 23, 42, 0.8);
             padding: 16px;
             width: 100%;
         }
@@ -30,12 +28,11 @@
             justify-content: space-between;
             align-items: center;
         }
-        .logo { font-weight: 700; font-size: 20px; letter-spacing: -0.5px; }
+        .logo { font-weight: 700; font-size: 20px; }
         .logo-highlight { color: #34d399; }
         .logo-sub { font-size: 12px; color: #64748b; font-weight: 400; margin-left: 4px; }
-        .repo-link { font-size: 12px; color: #94a3b8; text-decoration: none; font-weight: 500; }
+        .repo-link { font-size: 12px; color: #94a3b8; text-decoration: none; }
         .repo-link:hover { color: #ffffff; text-decoration: underline; }
-        
         main {
             max-width: 1200px;
             width: 100%;
@@ -44,10 +41,8 @@
             flex-grow: 1;
         }
         .welcome-section { margin-bottom: 40px; }
-        .welcome-title { font-size: 36px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; color: #ffffff; }
+        .welcome-title { font-size: 36px; font-weight: 800; margin-bottom: 8px; color: #ffffff; }
         .welcome-desc { color: #94a3b8; font-size: 15px; max-width: 600px; line-height: 1.6; }
-        
-        /* Grid Alignment Matrix */
         .grid-container {
             display: grid;
             grid-template-cols: 1fr;
@@ -55,158 +50,96 @@
         }
         @media (min-width: 768px) { .grid-container { grid-template-cols: repeat(2, 1fr); } }
         @media (min-width: 1024px) { .grid-container { grid-template-cols: repeat(3, 1fr); } }
-        
-        /* App 1: PrintProof Local Engine Processing Card Block Layout */
-        .printproof-card {
-            border: 2px solid rgba(52, 211, 153, 0.4);
-            background-color: rgba(15, 23, 42, 0.7);
-            border-radius: 16px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 240px;
-            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
-        }
-        .printproof-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .printproof-title { color: #34d399; font-weight: 700; font-size: 18px; }
-        .badge { font-size: 10px; background-color: rgba(52, 211, 153, 0.1); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.2); padding: 2px 8px; font-weight: 600; border-radius: 12px; text-transform: uppercase; }
-        .printproof-desc { color: #94a3b8; font-size: 12px; line-height: 1.5; margin-bottom: 12px; }
-        
-        /* Fixed PrintProof Internal Drag Interface */
-        .drop-zone {
-            border: 1px dashed #334155;
-            background-color: rgba(2, 6, 23, 0.4);
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            cursor: pointer;
-            transition: border-color 0.2s, background-color 0.2s;
-            flex-grow: 1;
-        }
-        .drop-zone:hover { border-color: #34d399; background-color: rgba(2, 6, 23, 0.7); }
-        .hidden-input { display: none; }
-        .drop-text-main { font-size: 13px; font-weight: 600; color: #e2e8f0; }
-        .drop-text-sub { font-size: 11px; color: #64748b; margin-top: 2px; }
-        
-        .state-text { font-size: 12px; font-weight: 500; }
-        .state-processing { color: #34d399; animation: pulse-text 1.5s infinite; }
-        .state-success { color: #34d399; font-weight: 600; margin-bottom: 6px; }
-        .download-btn { background-color: #34d399; color: #020617; font-weight: 700; padding: 6px 16px; border: none; border-radius: 6px; font-size: 11px; cursor: pointer; transition: transform 0.1s; }
-        .download-btn:hover { background-color: #10b981; }
-        .download-btn:active { transform: scale(0.97); }
-
-        /* The 8 Core Sub-Folders Launcher Grid Styling */
         .card {
             border: 1px solid rgba(51, 65, 85, 0.4);
-            background-color: rgba(30, 41, 59, 0.2);
+            background-color: rgba(30, 41, 59, 0.3);
             border-radius: 16px;
             padding: 24px;
             text-decoration: none;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 240px;
+            min-height: 200px;
             transition: border-color 0.2s, background-color 0.2s;
         }
-        .card:hover { border-color: #64748b; background-color: rgba(30, 41, 59, 0.4); }
+        .card:hover { border-color: #34d399; background-color: rgba(30, 41, 59, 0.5); }
         .card-title { font-size: 18px; font-weight: 700; color: #ffffff; margin-bottom: 6px; }
         .card-desc { color: #94a3b8; font-size: 12px; line-height: 1.5; flex-grow: 1; }
-        .card-action { color: #34d399; font-size: 12px; font-weight: 600; margin-top: 16px; display: flex; align-items: center; gap: 4px; }
-        
-        footer { border-top: 1px solid #1e293b; background-color: #020617; padding: 24px; text-align: center; font-size: 12px; color: #64748b; margin-top: 40px; }
-        .footer-container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; justify-content: space-between; align-items: center; }
-        @media (min-width: 640px) { .footer-container { flex-direction: row; } }
-        .footer-link { color: #64748b; text-decoration: none; }
-        .footer-link:hover { text-decoration: underline; color: #94a3b8; }
-        .hidden-block { display: none !important; }
-        @keyframes pulse-text { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .card-action { color: #34d399; font-size: 12px; font-weight: 600; margin-top: 16px; }
+        .badge { font-size: 10px; background-color: rgba(52, 211, 153, 0.1); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.2); padding: 2px 8px; font-weight: 600; border-radius: 12px; display: inline-block; width: fit-content; margin-bottom: 6px; text-transform: uppercase; }
+        footer { border-top: 1px solid #1e293b; padding: 24px; text-align: center; font-size: 12px; color: #64748b; margin-top: 40px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     </style>
 </head>
 <body>
-
-    <!-- Header Navigation -->
     <header>
         <div class="header-container">
-            <div class="logo">
-                <span>Modu<span class="logo-highlight">Kit</span><span class="logo-sub">.dev</span></span>
-            </div>
-            <div>
-                <a href="https://github.com" target="_blank" class="repo-link">
-                    GitHub Repo
-                </a>
-            </div>
+            <div class="logo">Modu<span class="logo-highlight">Kit</span><span class="logo-sub">.dev</span></div>
+            <a href="https://github.com" target="_blank" class="repo-link">GitHub Repo</a>
         </div>
     </header>
-
-    <!-- Main Grid Dashboard -->
     <main>
-        
-        <!-- Welcome Message -->
         <div class="welcome-section">
             <h1 class="welcome-title">My Workspace Utilities</h1>
             <p class="welcome-desc">A personal library of production tools, automated estimators, and visualizers built over the last three months.</p>
         </div>
-
-        <!-- The 9 App Grid Layout Container -->
         <div class="grid-container">
-            
-                        <!-- APP 1: PrintProof Engine Box (Interactive Client-Side Dropzone) -->
-            <div class="printproof-card" style="border: 2px solid rgba(52, 211, 153, 0.4); background-color: rgba(15, 23, 42, 0.7); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 240px; box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);">
+            <!-- 1: PrintProof -->
+            <a href="print-proof/" class="card" style="border-color: rgba(52, 211, 153, 0.4);">
                 <div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <h3 style="color: #34d399; font-weight: 700; font-size: 18px;">PrintProof</h3>
-                        <span style="font-size: 10px; background-color: rgba(52, 211, 153, 0.1); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.2); padding: 2px 8px; font-weight: 600; border-radius: 12px; text-transform: uppercase;">Local Engine</span>
-                    </div>
-                    <p style="color: #94a3b8; font-size: 12px; line-height: 1.5; margin-bottom: 12px;">Bypass office printer crashes by flattening PDF structures and stripping spooler metadata completely locally.</p>
+                    <span class="badge">New Tool</span>
+                    <h3 class="card-title">PrintProof</h3>
+                    <p class="card-desc">Bypass office printer crashes by flattening PDF structures and stripping spooler metadata.</p>
                 </div>
-                
-                <!-- File Processing Interface Trigger -->
-                <div id="drop-zone" class="drop-zone" style="border: 1px dashed #334155; background-color: rgba(2, 6, 23, 0.4); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; flex-grow: 1;">
-                    <input type="file" id="file-picker" class="hidden-input" accept=".pdf" style="display: none;" />
-                    
-                    <div id="state-ready">
-                        <p style="font-size: 13px; font-weight: 600; color: #e2e8f0;">Drag & Drop PDF or Click here</p>
-                        <p style="font-size: 11px; color: #64748b; margin-top: 2px;">100% Client-Side Rebuild</p>
-                    </div>
-                    
-                    <div id="state-processing" class="hidden-block" style="display: none;">
-                        <p style="font-size: 12px; font-weight: 500; color: #34d399;">Stripping metadata layer parameters...</p>
-                    </div>
-                    
-                    <div id="state-done" class="hidden-block" style="display: none;">
-                        <p style="font-size: 12px; font-weight: 600; color: #34d399; margin-bottom: 6px;">Structure Flattened!</p>
-                        <button id="download-btn" class="download-btn" style="background-color: #34d399; color: #020617; font-weight: 700; padding: 6px 16px; border: none; border-radius: 6px; font-size: 11px; cursor: pointer;">Download PDF</button>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- APP 2: Bar Estimator -->
+                <div class="card-action">Launch Tool →</div>
+            </a>
+            <!-- 2: Bar Estimator -->
             <a href="bar-estimator/" class="card">
-                <div>
-                    <h3 class="card-title">Bar Estimator</h3>
-                    <p class="card-desc">Material estimation engine tailored for structural reinforcing layouts.</p>
-                </div>
+                <div><h3 class="card-title">Bar Estimator</h3><p class="card-desc">Material estimation engine tailored for structural reinforcing layouts.</p></div>
                 <div class="card-action">Launch Tool →</div>
             </a>
-
-            <!-- APP 3: Camera Visualizer -->
+            <!-- 3: Camera Visualizer -->
             <a href="camera-visualizer/" class="card">
-                <div>
-                    <h3 class="card-title">Camera Visualizer</h3>
-                    <p class="card-desc">Real-time perspective grid maps and diagnostic optics render setup tools.</p>
-                </div>
+                <div><h3 class="card-title">Camera Visualizer</h3><p class="card-desc">Real-time perspective grid maps and diagnostic optics render setup tools.</p></div>
                 <div class="card-action">Launch Tool →</div>
             </a>
-
-            <!-- APP 4: Developer Utilities (Fixed trailing slash path syntax mapping) -->
+            <!-- 4: Developer Utilities -->
             <a href="dev-tools/" class="card">
-                <div>
-                    <h3 class="card-title">Developer Utilities</h3>
-                    <p class="card-desc">Quick snippet code generators, text formatting modules, and format validators.</p>
-                </div>
+                <div><h3 class="card-title">Developer Utilities</h3><p class="card-desc">Quick snippet code generators, text formatting modules, and format validators.</p></div>
+                <div class="card-action">Launch Tool →</div>
+            </a>
+            <!-- 5: Filament Estimator -->
+            <a href="filament-estimator/" class="card">
+                <div><h3 class="card-title">Filament Estimator</h3><p class="card-desc">Calculate volume consumption metrics and pricing matrices for additive 3D prints.</p></div>
+                <div class="card-action">Launch Tool →</div>
+            </a>
+            <!-- 6: Metadata Locker -->
+            <a href="metadata-locker/" class="card">
+                <div><h3 class="card-title">Metadata Locker</h3><p class="card-desc">Local file security parsing toolkit to audit file parameters securely.</p></div>
+                <div class="card-action">Launch Tool →</div>
+            </a>
+            <!-- 7: Scope Guard -->
+            <a href="scope-guard/" class="card">
+                <div><h3 class="card-title">Scope Guard</h3><p class="card-desc">Operational pipeline safety logic maps and task deadline boundary models.</p></div>
+                <div class="card-action">Launch Tool →</div>
+            </a>
+            <!-- 8: Social Media Safezone -->
+            <a href="social-media-safezone/" class="card">
+                <div><h3 class="card-title">Social Media Safezone</h3><p class="card-desc">Visual frame overlays and clipping safe zone dimensions template rules.</p></div>
+                <div class="card-action">Launch Tool →</div>
+            </a>
+            <!-- 9: Trench Calculator -->
+            <a href="trench-calculator/" class="card">
+                <div><h3 class="card-title">Trench Calculator</h3><p class="card-desc">Excavation volume equations and grade structural slope backfill estimators.</p></div>
+                <div class="card-action">Launch Tool →</div>
+            </a>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div>© 2026 ModuKit.dev</div>
+            <a href="license-legalese/" class="repo-link">License Legalese</a>
+        </div>
+    </footer>
+</body>
+</html>
