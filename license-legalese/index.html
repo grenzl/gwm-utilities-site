@@ -3,195 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ModuKit — The Modular Web Utility Hub</title>
+    <title>License-Legalese // v1.0.0</title>
+    
+    <!-- Stable Native CSS Layout Layer -->
     <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-glow: #38bdf8;
-            --accent-hover: #0ea5e9;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: #0c111d;
+            color: #f1f5f9;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            padding: 40px 20px;
             min-height: 100vh;
-            padding: 2rem 1rem;
         }
-
         .container {
-            max-width: 1100px;
+            max-width: 650px;
             margin: 0 auto;
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 3.5rem;
+        .header {
+            margin-bottom: 32px;
+            position: relative;
         }
-
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: -0.05em;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(to right, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        .hub-section {
-            margin-bottom: 3rem;
-        }
-
-        .hub-title {
-            font-size: 1.25rem;
-            color: var(--accent-glow);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid #334155;
-            padding-bottom: 0.5rem;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-decoration: none;
-            color: inherit;
-            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-glow);
-            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.1);
-        }
-
-        .card.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
-        .card-header h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+        .title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 8px;
         }
-
-        .card-header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.4;
+        .title-icon { color: #f59e0b; font-weight: normal; }
+        .version { color: #94a3b8; font-weight: 400; font-size: 20px; }
+        .subtitle {
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 6px;
         }
-
-        .status-badge {
-            display: inline-block;
-            align-self: flex-start;
-            margin-top: 1.5rem;
-            font-size: 0.75rem;
+        .tagline {
+            position: absolute;
+            top: 4px;
+            right: 0;
+            font-size: 10px;
+            color: #334155;
+            letter-spacing: 1px;
             font-weight: 600;
-            padding: 0.25rem 0.5rem;
-            border-radius: 6px;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        input, select, textarea {
+            width: 100%;
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #f1f5f9;
+            font-size: 14px;
+            outline: none;
+            font-family: inherit;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #475569;
+        }
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://w3.org' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            cursor: pointer;
+        }
+        
+        .output-box {
+            margin-top: 32px;
+            background-color: rgba(15, 23, 42, 0.4);
+            border: 1px dashed rgba(51, 65, 85, 0.5);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .output-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
         }
-
-        .status-live {
-            background-color: rgba(34, 197, 94, 0.1);
-            color: #4ade80;
-            border: 1px solid rgba(34, 197, 94, 0.2);
-        }
-
-        .status-upcoming {
-            background-color: rgba(148, 163, 184, 0.1);
-            color: var(--text-muted);
-            border: 1px solid rgba(148, 163, 184, 0.2);
+        textarea.code-display {
+            background-color: #020617;
+            border: 1px solid #0f172a;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #cbd5e1;
+            height: 180px;
+            resize: none;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <header>
-            <h1>ModuKit</h1>
-            <p>A centralized suite of lightweight, modular browser utilities.</p>
-        </header>
-
-        <!-- HUB 1: 3D PRINTING & MAKER TOOLS -->
-        <section class="hub-section">
-            <h2 class="hub-title">🛠️ Maker & 3D Printing Hub</h2>
-            <div class="grid">
-                <!-- Live App Link Using Clean Relative Paths -->
-                <a href="./filament-estimator/" class="card">
-                    <div class="card-header">
-                        <h3>⚖️ Filament Estimator</h3>
-                        <p>Convert 3D printing filament weight to length, map usage parameters, and calculate precise production material costs.</p>
-                    </div>
-                    <span class="status-badge status-live">Live Tool</span>
-                </a>
-
-                <!-- Placeholder for future tool -->
-                <div class="card disabled">
-                    <div class="card-header">
-                        <h3>⏱️ Print Time Predictor</h3>
-                        <p>Analyze g-code variables, layer geometry settings, and volumetric speed limits to accurately predict physical print intervals.</p>
-                    </div>
-                    <span class="status-badge status-upcoming">Planned</span>
-                </div>
+        <!-- App Header Area -->
+        <div class="header">
+            <div class="title">
+                <span class="title-icon">⚖️</span> License-Legalese <span class="version">// v1.0.0</span>
             </div>
-        </section>
+            <p class="subtitle">Instantly build bulletproof image rights frameworks for digital contracts.</p>
+            <div class="tagline">A GWMEDIA MARKETING INITIATIVE</div>
+        </div>
 
-        <!-- HUB 2: DEVELOPER UTILITIES -->
-        <section class="hub-section">
-            <h2 class="hub-title">💻 Developer Tools Hub</h2>
-            <div class="grid">
-                <!-- Placeholder for future tool -->
-                <div class="card disabled">
-                    <div class="card-header">
-                        <h3>📦 JSON Swiss Army Knife</h3>
-                        <p>Format, minify, validate, and convert nested raw JSON payloads instantly directly within your local browser runtime sandbox.</p>
-                    </div>
-                    <span class="status-badge status-upcoming">Planned</span>
-                </div>
+        <!-- Form Entry Parameters -->
+        <div class="form-group">
+            <label for="licensor-name">Licensor Name / Studio</label>
+            <input type="text" id="licensor-name" value="GWMEDIA Studio">
+        </div>
 
-                <!-- Placeholder for future tool -->
-                <div class="card disabled">
-                    <div class="card-header">
-                        <h3>🔑 Base64 / String Encoder</h3>
-                        <p>Encode and decode media assets, plain text snippets, or cryptic hashing variables instantly without risking remote leakage data transfers.</p>
-                    </div>
-                    <span class="status-badge status-upcoming">Planned</span>
-                </div>
-            </div>
-        </section>
+        <div class="form-group">
+            <label for="distribution-scope">Media Distribution Scope</label>
+            <select id="distribution-scope">
+                <option value="digital">Digital Web & Social Media</option>
+                <option value="print">Print & Broadcast Media</option>
+                <option value="full">Full Commercial Rights Bundle</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="duration-param">Duration Parameters</label>
+            <select id="duration-param">
+                <option value="1">1 Year Term</option>
+                <option value="3">3 Year Term</option>
+                <option value="perpetual">Perpetual / Unlimited</option>
+            </select>
+        </div>
+
+        <!-- Generated Output Box -->
+        <div class="output-box">
+            <div class="output-title">Generated Contract Language Block</div>
+            <textarea id="contract-output" class="code-display" readonly>IMAGE LICENSING RIDER // GRANTED BY: GWMEDIA Studio
+Subject to final invoice balancing, the client is granted a non-exclusive, non-transferable right to use the generated imagery for Digital Web and Social Media channels only. This agreement remains valid for a period of exactly one (1) calendar year from invoice completion date. Copyright ownership remains exclusively with the original creator. Unauthorized usage beyond these parameters constitutes structural infringement.</textarea>
+        </div>
     </div>
 
+    <script>
+        // Interactive legal layout compilation script logic
+        const licensorInput = document.getElementById('licensor-name');
+        const scopeSelect = document.getElementById('distribution-scope');
+        const durationSelect = document.getElementById('duration-param');
+        const outputArea = document.getElementById('contract-output');
+
+        function updateContractBlock() {
+            const name = licensorInput.value || "GWMEDIA Studio";
+            const scopeText = scopeSelect.options[scopeSelect.selectedIndex].text;
+            const durationText = durationSelect.options[durationSelect.selectedIndex].text.toLowerCase();
+            
+            outputArea.value = `IMAGE LICENSING RIDER // GRANTED BY: ${name}\nSubject to final invoice balancing, the client is granted a non-exclusive, non-transferable right to use the generated imagery for ${scopeText} channels only. This agreement remains valid for a period of exactly ${durationText} from invoice completion date. Copyright ownership remains exclusively with the original creator. Unauthorized usage beyond these parameters constitutes structural infringement.`;
+        }
+
+        licensorInput.addEventListener('input', updateContractBlock);
+        scopeSelect.addEventListener('change', updateContractBlock);
+        durationSelect.addEventListener('change', updateContractBlock);
+    </script>
 </body>
 </html>
